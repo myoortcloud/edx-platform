@@ -12,6 +12,10 @@ from xmodule.partitions.partitions import Group, UserPartition
 GROUP_CONFIGURATION_JSON = {
     u'name': u'Test name',
     u'description': u'Test description',
+    u'groups': [
+        {u'name': u'Group A'},
+        {u'name': u'Group B'},
+    ],
 }
 
 
@@ -96,7 +100,6 @@ class GroupConfigurationsListHandlerTestCase(CourseTestCase, GroupConfigurations
     """
     Test cases for group_configurations_list_handler.
     """
-
     def setUp(self):
         """
         Set up GroupConfigurationsListHandlerTestCase.
@@ -157,8 +160,12 @@ class GroupConfigurationsListHandlerTestCase(CourseTestCase, GroupConfigurations
         self.assertEqual(len(group_ids), 2)
         self.reload_course()
         # Verify that user_partitions in the course contains the new group configuration.
-        self.assertEqual(len(self.course.user_partitions), 1)
-        self.assertEqual(self.course.user_partitions[0].name, u'Test name')
+        user_partititons = self.course.user_partitions
+        self.assertEqual(len(user_partititons), 1)
+        self.assertEqual(user_partititons[0].name, u'Test name')
+        self.assertEqual(len(user_partititons[0].groups), 2)
+        self.assertEqual(user_partititons[0].groups[0].name, u'Group A')
+        self.assertEqual(user_partititons[0].groups[1].name, u'Group B')
 
 
 # pylint: disable=no-member
@@ -204,7 +211,7 @@ class GroupConfigurationsDetailHandlerTestCase(CourseTestCase, GroupConfiguratio
 
         response = self.client.put(
             self._url(cid=999),
-            data=json.dumps(GROUP_CONFIGURATION_JSON),
+            data=json.dumps(expected),
             content_type="application/json",
             HTTP_ACCEPT="application/json",
             HTTP_X_REQUESTED_WITH="XMLHttpRequest",
@@ -213,8 +220,12 @@ class GroupConfigurationsDetailHandlerTestCase(CourseTestCase, GroupConfiguratio
         self.assertEqual(content, expected)
         self.reload_course()
         # Verify that user_partitions in the course contains the new group configuration.
-        self.assertEqual(len(self.course.user_partitions), 1)
-        self.assertEqual(self.course.user_partitions[0].name, u'Test name')
+        user_partititons = self.course.user_partitions
+        self.assertEqual(len(user_partititons), 1)
+        self.assertEqual(user_partititons[0].name, u'Test name')
+        self.assertEqual(len(user_partititons[0].groups), 2)
+        self.assertEqual(user_partititons[0].groups[0].name, u'Group A')
+        self.assertEqual(user_partititons[0].groups[1].name, u'Group B')
 
     def test_can_edit_group_configuration(self):
         """
@@ -231,8 +242,8 @@ class GroupConfigurationsDetailHandlerTestCase(CourseTestCase, GroupConfiguratio
             u'description': u'New Test description',
             u'version': 1,
             u'groups': [
-                {u'id': 0, u'name': u'Group A', u'version': 1},
-                {u'id': 1, u'name': u'Group B', u'version': 1},
+                {u'id': 0, u'name': u'New Group Name', u'version': 1},
+                {u'id': 2, u'name': u'Group C', u'version': 1},
             ],
         }
         response = self.client.put(
@@ -246,5 +257,9 @@ class GroupConfigurationsDetailHandlerTestCase(CourseTestCase, GroupConfiguratio
         self.assertEqual(content, expected)
         self.reload_course()
         # Verify that user_partitions is properly updated in the course.
-        self.assertEqual(len(self.course.user_partitions), 1)
-        self.assertEqual(self.course.user_partitions[0].name, u'New Test name')
+        user_partititons = self.course.user_partitions
+        self.assertEqual(len(user_partititons), 1)
+        self.assertEqual(user_partititons[0].name, u'New Test name')
+        self.assertEqual(len(user_partititons[0].groups), 2)
+        self.assertEqual(user_partititons[0].groups[0].name, u'New Group Name')
+        self.assertEqual(user_partititons[0].groups[1].name, u'Group C')
