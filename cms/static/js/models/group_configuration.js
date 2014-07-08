@@ -13,7 +13,8 @@ function(Backbone, _, str, gettext, GroupModel, GroupCollection) {
                 version: null,
                 groups: new GroupCollection([]),
                 showGroups: false,
-                editing: false
+                editing: false,
+                usage: []
             };
         },
 
