@@ -170,13 +170,3 @@ if Backbone?
     highlight: (el) ->
       if el.html()
         el.html(el.html().replace(/&lt;mark&gt;/g, "<mark>").replace(/&lt;\/mark&gt;/g, "</mark>"))
-
-  class @DiscussionThreadInlineShowView extends DiscussionThreadShowView
-    renderTemplate: ->
-      @template = DiscussionUtil.getTemplate('_inline_thread_show')
-      params = @model.toJSON()
-      if @model.get('username')?
-        params = $.extend(params, user:{username: @model.username, user_url: @model.user_url})
-      Mustache.render(@template, params)
-
-     
