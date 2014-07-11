@@ -2,66 +2,6 @@
 Feature: CMS Video Component Editor
   As a course author, I want to be able to create video components
 
-  # 1
-  Scenario: User can view Video metadata
-    Given I have created a Video component
-    And I edit the component
-    Then I see the correct video settings and default values
-
-  # 2
-  # Safari has trouble saving values on Sauce
-  @skip_safari
-  Scenario: User can modify Video display name
-    Given I have created a Video component
-    And I edit the component
-    And I open tab "Advanced"
-    Then I can modify video display name
-    And my video display name change is persisted on save
-
-  # 3
-  # Sauce Labs cannot delete cookies
-  @skip_sauce
-  Scenario: Captions are hidden when "transcript display" is false
-    Given I have created a Video component with subtitles
-    And I have set "transcript display" to False
-    Then when I view the video it does not show the captions
-
-  # 4
-  # Sauce Labs cannot delete cookies
-  @skip_sauce
-  Scenario: Captions are shown when "transcript display" is true
-    Given I have created a Video component with subtitles
-    And I have set "transcript display" to True
-    Then when I view the video it does show the captions
-
-  # 5
-  Scenario: Translations uploading works correctly
-    Given I have created a Video component
-    And I edit the component
-    And I open tab "Advanced"
-    And I upload transcript file "chinese_transcripts.srt" for "zh" language code
-    And I save changes
-    Then when I view the video it does show the captions
-    And I see "好 各位同学" text in the captions
-    And I edit the component
-    And I open tab "Advanced"
-    And I see translations for "zh"
-    And I upload transcript file "uk_transcripts.srt" for "uk" language code
-    And I save changes
-    Then when I view the video it does show the captions
-    And I see "好 各位同学" text in the captions
-    And video language menu has "uk, zh" translations
-
-  # 6
-  Scenario: User can upload transcript file with > 1mb size
-    Given I have created a Video component
-    And I edit the component
-    And I open tab "Advanced"
-    And I upload transcript file "1mb_transcripts.srt" for "uk" language code
-    And I save changes
-    Then when I view the video it does show the captions
-    And I see "Привіт, edX вітає вас." text in the captions
-
   # 7
   Scenario: Translations downloading works correctly w/ preliminary saving
     Given I have created a Video component
