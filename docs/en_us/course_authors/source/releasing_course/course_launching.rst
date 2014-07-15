@@ -8,11 +8,11 @@ To launch a course, you prepare the course itself, the staff, and the
 students. This chapter includes a :ref:`Course Launch Checklist` to use as a
 model for your schedule of activities.
 
-To help you communicate to the course staff or to all course participants
-before the course launches and while it is running, you can send email messages
-from the Instructor Dashboard. See :ref:`Bulk Email`. This chapter also
-includes a set of :ref:`Example Messages to Students` that you can use as
-guidelines when you write your own email messages.
+To help you communicate to the course staff or to all course participants before
+the course launches and while it is running, you can send email messages from
+the Instructor Dashboard. See :ref:`Bulk Email`. This chapter also includes a
+set of :ref:`example messages to students<Example Messages to Students>` that
+you can use as guidelines when you write your own email messages.
 
 .. _Course Launch Checklist:
 
@@ -73,8 +73,9 @@ starts follow.
 * Verify that the instructors and course staff selected for your course
   have the correct role assignments in the LMS. See :ref:`Course_Staffing`.
 * Verify that discussion admins, discussion moderators, and community TAs have
-  registered and activated their user accounts, enrolled in the course, and
-  been assigned their roles. See :ref:`Assigning_discussion_roles`.
+  registered and activated their user accounts, enrolled in the course, and been
+  assigned their roles on the Instructor Dashboard. See
+  :ref:`Assigning_discussion_roles`.
 * Define methods for managing discussions and guidance for discussion
   moderators, and distribute to the discussion team. See
   :ref:`Moderating_discussions` and :ref:`Guidance for Discussion Moderators`.
@@ -276,11 +277,10 @@ milestones, as models for your own course communications.
 * :ref:`Midcourse Events`
 * :ref:`Course Farewell and Certificates`
 
-These messages are styled as email messages, but you could also post the
-information that is in them in a course discussion topic or on the **Course
-Info** page.
+These messages are styled as email messages, but you could also post this
+information in a course discussion topic or on the **Course Info** page.
 
-.. important:: Revise these message templates carefully to include the facts for your own course, meet the needs of your students, and reflect your own objectives and personality. Search for the "{" and "}" characters to locate prompts and replace them with course-specific values. 
+.. important:: Revise these message templates carefully to include facts for your own course, meet the needs of your students, and reflect your own objectives and personality. Search for the "{" and "}" characters to locate prompts and replace them with course-specific values. 
 
 .. _Prelaunch Reminder: 
 
@@ -290,21 +290,21 @@ Pre-launch Reminder
 
 Pre-launch reminders raise awareness of the course start date, publicize the
 course, and generate excitement. In addition to the course start date and time,
-the example that follows also conveys:
+the example that follows also lets students know that:
 
-* That UTC is used in edX courses. Alternatively, you could include information
-  about characteristics of your course or of the  edX platform that will
-  contribute to your students' success.
+* UTC is used in edX courses. Alternatively, you could include information about
+  your course or the edX platform that will contribute to your students'
+  success.
 
-* That there is a companion social media site for the course. Alternatively,
-  you might include information about planned meetups or other community-
-  building opportunities.
+* The course has a companion social media site. Alternatively, you might include
+  information about planned meetups or other community-building opportunities.
 
 You may want to send out more than one message before the course launches: use
 this template as a starting point for crafting the different messages you want
-to deliver.
+to deliver. Replace values enclosed by {braces} with information that applies to
+your course.
 
-.. code-block:: python
+:: 
 
   Subject: {course number} Starts Soon!
 
@@ -319,6 +319,11 @@ to deliver.
   Facebook page {add link}. You can find videos and photos posted there before
   the course even begins.
 
+  If this is your first edX course, consider registering for edx101 {add link},
+  the edX Demo course. This course gives you an opportunity to explore the edX
+  platform and learn how to answer problems and track your progress, before
+  {course number} begins.
+
   Your {course number} course staff
 
 .. _Launch Day Welcome:
@@ -330,9 +335,10 @@ Launch Day Welcome
 On your course start date, you can send an email message that both welcomes
 students and gives them specific actions to accomplish. This example directs
 students to two of the course pages to encourage exploration and discovery, and
-personally introduces the course team leader.
+personally introduces the course team leader. Search for the values enclosed by
+{braces} in this template and replace them with information for your course.
 
-.. code-block:: python
+:: 
 
   Subject: {course number} Starts Today!
 
@@ -357,7 +363,7 @@ personally introduces the course team leader.
 .. _Midcourse Encouragement:
 
 ==========================
-Mid-course Encouragement
+Mid-Course Encouragement
 ==========================
 
 While your course is running, you can send messages to promote community,
@@ -365,10 +371,11 @@ remind students of upcoming due dates, and address any recurring issues.
 
 This example gives students guidance on how to keep up with the course schedule
 and encourages contributions to the discussions. You may want to send out more
-than one message while the course is running: use this template as a starting
-point for your own messages.
+than one message while the course is running. You can use this template as a
+starting point for your own messages; search for the values enclosed by {braces}
+and replace them with information for your course.
 
-.. code-block:: python
+:: 
 
   Subject: {course name} Announcements
 
@@ -385,12 +392,12 @@ point for your own messages.
 
   We have a few additional announcements.
 
-  * Week {number} on {subject} is now available on teh Courseware page.
+  * Week {number} on {subject} is now available on the Courseware page.
 
   * Problem set {number} is also available. It is due on {date} at {time} UTC. 
 
-  * Remember that the due dates for problem sets and exams are in the UTC (GMT)
-    time zone. See the current UTC time here {add link}. Please convert the
+  * Remember that the due dates for problem sets and exams are in UTC (the GMT
+    time zone). See the current UTC time here {add link}. Please convert the
     times given to your own time zone!
 
   Wishing you continued success in the course,
@@ -400,7 +407,7 @@ point for your own messages.
 .. _Midcourse Events:
 
 =======================
-Mid-course Event
+Mid-Course Event
 =======================
 
 Before an exam or other significant course event, messages can provide
@@ -417,22 +424,22 @@ completion. This example lets students know:
 * Whether the course discussions will be open or closed during the exam. (In
   the example that follows, the discussions will remain **open**.)
 
-* What, if anything, constitutes an honor code violation.
+* What constitutes an honor code violation.
 
 * What technical limitations, if any, are imposed by external tools such as
   graders.
 
-(Be sure to search for the values enclosed by {braces} and replace them with
-information for your course.)
+Be sure to search for the values enclosed by {braces} and replace them with
+information for your course.
 
-.. code-block:: python
+:: 
 
   Subject: {course number} Exam Info
 
   Hello {course name} student,
 
   Great job working through week {number}! As you know, the {course number}
-  exam is next week. f you missed a problem set, you can still earn a
+  exam is next week. If you missed a problem set, you can still earn a
   certificate. Each problem set is worth only {number}% of the overall grade,
   but this exam is worth {number}%.
 
@@ -449,10 +456,10 @@ information for your course.)
     deadline.
 
   * Each exam question allows only one answer submission. If you accidentally
-    click "Check" that problem cannot be reset for you.
+    click "Check", that problem cannot be reset for you.
 
   * The exam covers everything (video lectures, reading, and problem sets) from
-    Weeks {number}-{number}. If you missed any of these materials, you will
+    weeks {number}-{number}. If you missed any of these materials, you will
     want to review them before you take the exam.
 
   * You can use the textbook and the Internet to clarify your knowledge of exam
@@ -480,11 +487,12 @@ information for your course.)
 Course Farewell and Certificates
 ==============================================
 
-In the last few days before your course ends, a message can direct students to
-a course survey and answer questions about certificates and future access to
-course materials.
+In the last few days before your course ends, a message can direct students to a
+course survey, answer questions about certificates, and provide information
+about future access to course materials. Be sure to replace values enclosed by
+{braces} with information for your course.
 
-.. code-block:: python
+:: 
 
   Subject: {course number} Final Remarks
 
@@ -492,18 +500,17 @@ course materials.
 
   Thank you for making {course number} so much fun these last few months! We
   had a great time getting to know you through the course discussions. We
-  appreciate the effort that you put in to this course, and we hope that you
+  appreciate the effort that you put into this course, and we hope that you
   enjoyed learning {subject} through edX. With or without a certificate, you
   should be proud of your accomplishments.
 
   * Please take a few minutes to answer the exit survey, now available under
-    Courseware. We will use your responses to improve the course for future
-    offerings.
+    Courseware. We will use your responses to improve the course in the future.
 
   * If you qualify for a certificate (overall score {number}% or higher), the
-    edX dashboard will include a link to your certificate sometime in the near
-    future. While you may see the link in a few days, it can take up to two
-    weeks for all course certificates to be generated by edX.
+    edX dashboard will include a link to your certificate in the near future.
+    While you may see the link in a few days, it can take up to two weeks edX to
+    generate all of the course certificates.
 
   * As a registered student, you will have access to the lecture videos even
     after the course ends. The problem sets and exams will be removed from the

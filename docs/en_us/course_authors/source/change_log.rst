@@ -13,6 +13,8 @@ July, 2014
 
    * - Date
      - Change
+   * - 07/16/14
+     - Added :ref:`Example Messages to Students` to the :ref:`Launch` chapter.
    * - 07/11/14
      - Added :ref:`Track Student Activity` to the :ref:`Student Data`
        chapter.
