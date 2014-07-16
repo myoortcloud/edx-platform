@@ -47,7 +47,7 @@ levels of interaction.
   post as a whole.
  
 The dialog created by a post, its responses, and the comments on those
-repsonses is called a *thread*.
+responses is called a *thread*.
 
 All course staff members and enrolled students can add posts, responses, and
 comments, and view all of the posts, responses, and comments made by other
@@ -66,7 +66,8 @@ Set Up Discussions for Your Course
 
 Discussions in an edX course include both the specific topics that you add to
 course units as discussion components, and broader forums on course-wide areas
-of interest, such as Feedback, Troubleshooting, or Technical Help. You add both types of topics in Studio.
+of interest, such as Feedback, Troubleshooting, or Technical Help. You add both
+types of topics in Studio.
 
 ============================================
 Add Units With a Discussion Component
@@ -76,7 +77,8 @@ Typically, all units are added during the design and creation of your course in
 Studio. To add a component to a unit, follow the instructions in :ref:`Working
 with Discussion Components`.
 
-This type of discussion is subject to the release date of the section that contains it. Students cannot contribute to these discussions until that date.
+This type of discussion is subject to the release date of the section that
+contains it. Students cannot contribute to these discussions until that date.
 
 =====================================
 Create Course-Wide Discussion Topics
@@ -152,7 +154,8 @@ these roles:
   banner. This role is often given to course team members who already have the
   Course Staff role.
 
-.. removed this clause from 1st sentence per JAAkana and MHoeber: , and, if the course is cohorted, see posts from all cohorts
+.. removed this clause from 1st sentence per JAAkana and MHoeber: , and, if the
+.. course is cohorted, see posts from all cohorts
 
 * Discussion community TAs have the same options for working with discussions
   as moderators. Posts made by community TAs are marked as "By: Community TA"
@@ -307,7 +310,8 @@ them available to students as a course handout file or on a defined page in
 your course. These guidelines can define your expectations and optionally
 introduce features of edX discussions.
 
-.. For a template that you can use to develop your own guidelines, see :ref:`Discussion Forum Guidelines`.
+.. For a template that you can use to develop your own guidelines, see
+.. :ref:`Discussion Forum Guidelines`.
 
 ========================================
 Develop a Positive Discussion Culture
@@ -407,7 +411,9 @@ that have been flagged in this way and edit or delete them as needed.
 Block Users
 ===============
 
-For a student who continues to misuse the course discussions, you can unenroll the student from the course. See :ref:`unenroll_student`. If the enrollment period for the course is over, the student cannot re-enroll.
+For a student who continues to misuse the course discussions, you can unenroll
+the student from the course. See :ref:`unenroll_student`. If the enrollment
+period for the course is over, the student cannot re-enroll.
 
 .. _Close_discussions:
 
@@ -506,3 +512,7 @@ reopen:
    .. image:: ../Images/Discussion_blackout_formatted.png
      :alt: Same policy value but with a line feed after each bracket and comma,
          and an indent before each date
+
+For examples of email messages that you can send to let students know when the
+course discussions are closed (or open), see :ref:`Example Messages to
+Students`.

@@ -4,8 +4,6 @@
 Participating in Course Discussions
 ###############################################
 
-.. please suggest a better title ^^ for this section!
-
 Course discussions give you the opportunity to start conversations with other
 students, ask questions of the course team, and participate in the course
 community.
@@ -14,6 +12,8 @@ Features of edX discussions that can make your participation more effective
 include ways to:
 
 * :ref:`Find Posts`
+
+* :ref:`Add a Post, Response, or Comment`
 
 * :ref:`Keep Up with New Activity`
 
@@ -59,9 +59,52 @@ Review Posts About a Single Topic
 **************************************
 
 To review posts about a particular part of the course or type of issue, click
-**Discussion** at the top of the page and then select a topic from the drop-down
-list. (**All Discussions** is selected by default.) Only posts about the topic
-you select appear in the list of posts.
+**Discussion** at the top of the page and then select a topic from the drop-
+down list. (**All Discussions** is selected by default.) Only posts about the
+topic you select appear in the list of posts.
+
+.. _Add a Post Response or Comment:
+
+================================
+Add a Post, Response, or Comment
+================================
+
+... this is likely to be more interesting and valuable when we add the
+..discussion vs. question differentiation
+
+Add a Post
+**********
+
+To encourage discussion about video lectures, reading assignments, questions,
+and other course content, most courses include discussion topics throughout the
+course. To start a conversation about a specific course components, you click
+**Courseware**, open that part of the course, and then click **New Post**.
+
+ .. image:: /Images/Create_New_Courseware_Post.png
+  :alt: Adding a post about specific course content
+
+You supply a short, descriptive **Title** for the post followed by the complete
+text.
+
+Courses also have other discussion topics that are not linked to a particular
+course component, for general-interest topics such as Frequently Asked
+Questions. On the **Discussion** page, you can add a post to a general, course-
+wide topic, or to any of the content-specific topics. To post to any discussion
+topic, click the **Discussion** page and then click **New Post**.
+
+When you add a post on the **Discussion** page, you start by selecting
+the most appropriate discussion topic.
+
+ .. image:: /Images/Create_New_Post.png
+  :alt: Selecting the topic for a new post on the Discussion page 
+
+You then provide a descriptive title and the text for your post.  
+
+Add a Response or Comment
+**************************
+
+To participate in an ongoing discussion, you can add a response to the initial
+post or you can add a comment about a response.
 
 .. _Keep Up with New Activity:
 
@@ -72,9 +115,10 @@ Keep Up with New Activity
 Read New or Updated Posts
 ***********************************
 
-The list of posts provides visual cues to help you identify posts that are new,
-or that have responses or comments that you have not read yet, and to
-distinguish them from exchanges that you have already read completely.
+The list of posts on the **Discussion** page provides visual cues to help you
+identify posts that are new, or that have responses or comments that you have
+not read yet, and to distinguish them from exchanges that you have already read
+completely.
 
 * Posts that you have not read yet have a blue dialog "bubble".
 
@@ -88,9 +132,9 @@ distinguish them from exchanges that you have already read completely.
   :alt: The list of posts with posts showing differently colored backgrounds and bubble icons
 
 These color-coded dialog bubbles appear when you sort the list of posts by
-recent activity or by most activity. If you sort the list of posts by most votes
-instead, the number of votes that the post has received appears in place of the
-bubble icon. See :ref:`Vote for Posts or Responses`.
+recent activity or by most activity. If you sort the list of posts by most
+votes instead, the number of votes that the post has received appears in place
+of the bubble icon. See :ref:`Vote for Posts or Responses`.
 
 Receive Daily Digests
 ***********************
