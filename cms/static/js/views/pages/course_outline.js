@@ -8,7 +8,7 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
             // takes XBlockInfo as a model
 
             events: {
-                "click .toggle-button-expand-collapse": "toggleExpandCollapse"
+                "click .button-toggle-expand-collapse": "toggleExpandCollapse"
             },
 
             initialize: function() {
@@ -23,19 +23,18 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
 
             setCollapseExpandVisibility: function() {
                 var has_content = this.hasContent(),
-                    collapseExpandButton = $('.toggle-button-expand-collapse');
+                    collapseExpandButton = $('.button-toggle-expand-collapse');
                 if (has_content) {
-                    collapseExpandButton.show();
+                    collapseExpandButton.removeClass('is-hidden');
                 } else {
-                    collapseExpandButton.hide();
+                    collapseExpandButton.addClass('is-hidden');
                 }
             },
 
             renderPage: function() {
-                var locatorToShow;
                 this.setCollapseExpandVisibility();
                 this.outlineView = new CourseOutlineView({
-                    el: this.$('.course-outline'),
+                    el: this.$('.outline'),
                     model: this.model,
                     isRoot: true,
                     initialState: this.initialState
@@ -50,7 +49,7 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
             },
 
             toggleExpandCollapse: function(event) {
-                var toggleButton = this.$('.toggle-button-expand-collapse'),
+                var toggleButton = this.$('.button-toggle-expand-collapse'),
                     collapse = toggleButton.hasClass('collapse-all');
                 event.preventDefault();
                 toggleButton.toggleClass('collapse-all expand-all');
