@@ -29,7 +29,7 @@ define(["js/views/baseview", "js/views/utils/xblock_utils"],
 
             render: function() {
                 this.$el.append(this.template({
-                    value: this.model.get(this.fieldName),
+                    value: this.model.escape(this.fieldName),
                     fieldName: this.fieldName,
                     fieldDisplayName: this.fieldDisplayName
                 }));
