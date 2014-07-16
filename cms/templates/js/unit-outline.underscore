@@ -10,8 +10,10 @@
     </div>
 <% } %>
 
-        <ol class="sortable-list sortable-<%= xblockType %>-list">
-        </ol>
+        <div class="<%= xblockType %>-content">
+            <ol class="<%= listType %> is-sortable">
+            </ol>
+        </div>
 
         <% if (childType) { %>
             <div class="add-xblock-component">

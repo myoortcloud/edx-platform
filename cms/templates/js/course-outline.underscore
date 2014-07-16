@@ -1,55 +1,80 @@
+<%
+var publishClasses = "";
+var title = gettext("Draft (Never published)");
+var published = xblockInfo.get('published');
+var hasChanges = xblockInfo.get('has_changes');
+var visibleToStaffOnly = false;
+if (xblockInfo.get('published_on')) {
+    publishClasses = publishClasses + " is-published";
+}
+if (xblockInfo.get('released_to_students')) {
+    publishClasses = publishClasses + " is-released";
+}
+if (xblockInfo.get('has_changes')) {
+    publishClasses = publishClasses + " has-changes";
+}
+if (visibleToStaffOnly) {
+    publishClasses = publishClasses + " is-staff-only";
+    title = gettext("Unpublished (Staff only)");
+}
+var listType = 'list-unknown';
+if (xblockType === 'course') {
+    listType = 'list-subsections';
+} else if (xblockType === 'section') {
+    listType = 'list-subsections';
+} else if (xblockType === 'subsection') {
+    listType = 'list-units';
+}
+%>
 <% if (parentInfo) { %>
-<li class="outline-item outline-item-<%= xblockType %> <%= includesChildren ? 'is-collapsible' : '' %> is-draggable <%= isCollapsed ? 'collapsed' : '' %>"
+<li class="outline-item outline-<%= xblockType %> <%= publishClasses %> is-draggable <%= includesChildren ? 'is-collapsible' : '' %> <%= isCollapsed ? 'is-collapsed' : '' %>"
     data-parent="<%= parentInfo.get('id') %>" data-locator="<%= xblockInfo.get('id') %>">
 
-    <div class="wrapper-xblock-header">
-        <div class="wrapper-xblock-header-primary">
-            <% if (includesChildren) { %>
-                <h3 class="xblock-title expand-collapse <%= isCollapsed ? 'expand' : 'collapse' %>" title="<%= gettext('Collapse/Expand this Checklist') %>">
-                    <i class="icon-caret-down ui-toggle-expansion"></i>
+    <div class="<%= xblockType %>-header">
+        <% if (includesChildren) { %>
+            <h3 class="<%= xblockType %>-header-details expand-collapse <%= isCollapsed ? 'expand' : 'collapse' %>" title="<%= gettext('Collapse/Expand this Checklist') %>">
+                <i class="icon-caret-down icon ui-toggle-expansion"></i>
+        <% } else { %>
+            <h3 class="<%= xblockType %>-header-details">
+        <% } %>
+
+            <% if (xblockInfo.get('category') === 'vertical') { %>
+                <a href="<%= xblockInfo.get('studio_url') %>"><%= xblockInfo.get('display_name') %></a>
             <% } else { %>
-                <h3 class="xblock-title">
+                <span class="wrapper-xblock-field wrapper-section-title" data-field="display_name">
+                    <span class="is-editable xblock-field-value"><%= xblockInfo.get('display_name') %></span>
+                </span>
             <% } %>
+        </h3>
 
-                <% if (xblockInfo.get('category') === 'vertical') { %>
-                    <a href="<%= xblockInfo.get('studio_url') %>"><%= xblockInfo.get('display_name') %></a>
-                <% } else { %>
-                    <span class="wrapper-xblock-field" data-field="display_name">
-                        <span class="is-editable xblock-field-value"><%= xblockInfo.get('display_name') %></span>
-                    </span>
-                <% } %>
-            </h3>
-
-            <div class="item-actions">
-                <ul class="actions-list">
-                    <li class="action-item action-delete">
-                        <a href="#" data-tooltip="<%= gettext('Delete') %>" class="delete-button action-button">
-                            <i class="icon-remove"></i>
-                            <span class="sr"><%= gettext('Delete') %></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div class="<%= xblockType %>-header-actions">
+            <ul class="actions-list">
+                <li class="action-item action-delete">
+                    <a href="#" data-tooltip="<%= gettext('Delete') %>" class="delete-button action-button">
+                        <i class="icon-remove"></i>
+                        <span class="sr"><%= gettext('Delete') %></span>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="wrapper-xblock-header-secondary">
-            <% if (xblockInfo.get('edited_on')) { %>
-                <div class="meta-info">
-                    <% if (xblockInfo.get('published')) { %>
-                        <i class="icon-check"></i>
-                        <%= gettext('Released:') %> Dec 31, 2015 at 21:00 UTC
+    </div>
+    <div class="<%= xblockType %>-status">
+        <% if (xblockInfo.get('release_date')) { %>
+            <p>
+                <span class="sr status-release-label">Release Status:</span>
+                <span class="status-release-value">
+                    <% if (xblockInfo.get('released_to_students')) { %>
+                        <i class="icon-check-sign"></i>
+                        <%= gettext('Released:') %>
                     <% } else { %>
                         <i class="icon-time"></i>
-                        <%= gettext('Scheduled:') %> Dec 31, 2015 at 21:00 UTC
+                        <%= gettext('Scheduled:') %>
                     <% } %>
-                </div>
-            <% } %>
+                    <%= xblockInfo.get('release_date') %>
+                </span>
+            </p>
+        <% } %>
 
-
-            <div class="item-actions">
-                <ul class="actions-list">
-                </ul>
-            </div>
-        </div>
     </div>
 <% } %>
 
@@ -63,12 +88,14 @@
             </p>
         </div>
     <% } else { %>
-        <ol class="sortable-list sortable-<%= xblockType %>-list">
-        </ol>
+        <div class="outline-content <%= xblockType %>-content">
+            <ol class="<%= listType %> is-sortable">
+            </ol>
+        </div>
 
         <% if (childType) { %>
-            <div class="add-xblock-component">
-                <a href="#" class="add-button" data-category="<%= childCategory %>"
+            <div class="add-<%= childType %> add-item">
+                <a href="#" class="action-add add-button" data-category="<%= childCategory %>"
                    data-parent="<%= xblockInfo.get('id') %>" data-default-name="<%= defaultNewChildName %>">
                     <i class="icon-plus"></i><%= addChildLabel %>
                 </a>

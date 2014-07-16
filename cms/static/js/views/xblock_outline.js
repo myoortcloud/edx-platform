@@ -94,8 +94,12 @@ define(["jquery", "underscore", "gettext", "js/views/baseview", "js/views/utils/
                 this.renderedChildren = true;
             },
 
+            getListElement: function() {
+                return this.$('> .outline-content > ol');
+            },
+
             addChildView: function(childView) {
-                this.$('> .sortable-list').append(childView.$el);
+                this.getListElement().append(childView.$el);
             },
 
             addNameEditor: function() {

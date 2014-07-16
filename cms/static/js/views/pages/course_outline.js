@@ -35,7 +35,7 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
                 var locatorToShow;
                 this.setCollapseExpandVisibility();
                 this.outlineView = new CourseOutlineView({
-                    el: this.$('.course-outline'),
+                    el: this.$('.outline'),
                     model: this.model,
                     isRoot: true,
                     initialState: this.initialState

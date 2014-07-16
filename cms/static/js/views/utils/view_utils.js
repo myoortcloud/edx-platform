@@ -12,7 +12,7 @@ define(["jquery", "underscore", "gettext", "js/views/feedback_notification", "js
          */
         toggleExpandCollapse = function(target) {
             target.closest('.expand-collapse').toggleClass('expand collapse');
-            target.closest('.is-collapsible, .window').toggleClass('collapsed');
+            target.closest('.is-collapsible, .window').toggleClass('collapsed is-collapsed');
             target.closest('.is-collapsible').children('article').slideToggle();
         };
 
