@@ -274,12 +274,11 @@ $outline-indent-width: $baseline;
     border-left: ($baseline/4) solid $color-draft;
   }
 
-  // CASE: is published by not released
+  // CASE: is published but not released
   &.is-published {
     border-left-color: $color-published;
 
-
-  &.is-published.is-released {
+    &.is-released {
       border-left-color: $color-released;
     }
   }

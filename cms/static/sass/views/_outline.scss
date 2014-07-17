@@ -1,6 +1,13 @@
 // studio - views - course outline
 // ====================
 
+// view-specific utilities
+// --------------------
+%outline-item-header {
+  @include clearfix();
+  line-height: 0;
+}
+
 .view-outline {
 
   // page structure
@@ -189,7 +196,7 @@
 
     // header
     .section-header {
-      @include clearfix();
+      @extend %outline-item-header;
     }
 
     .section-header-details {
@@ -240,7 +247,7 @@
 
     // header
     .subsection-header {
-      @include clearfix();
+      @extend %outline-item-header;
     }
 
     .subsection-header-details {
@@ -293,8 +300,7 @@
 
     // header
     .unit-header {
-      @include clearfix();
-      // margin-bottom: ($baseline/4);
+      @extend %outline-item-header;
     }
 
     .unit-header-details {
