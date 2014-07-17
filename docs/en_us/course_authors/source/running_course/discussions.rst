@@ -1,8 +1,8 @@
 .. _Discussions:
 
-############################
-Discussions
-############################
+##################################
+Managing the Course Discussions
+##################################
 
 Discussions, or discussion forums, foster interaction among your students and
 between students and course staff. You can set up different topics to guide
@@ -54,9 +54,7 @@ comments, and view all of the posts, responses, and comments made by other
 course participants. Discussion threads are saved as part of the course
 history.
 
-..note:: 
- The :ref:`Discussions for Students and Staff` section describes features that
- are available to all discussion participants. 
+..note:: The :ref:`Discussions for Students and Staff` section describes features that are available to all discussion participants. 
 
 .. _Organizing_discussions:
 

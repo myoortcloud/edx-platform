@@ -13,7 +13,7 @@ include ways to:
 
 * :ref:`Find Posts`
 
-* :ref:`Add a Post, Response, or Comment`
+* :ref:`Add a Post`
 
 * :ref:`Keep Up with New Activity`
 
@@ -63,22 +63,58 @@ To review posts about a particular part of the course or type of issue, click
 down list. (**All Discussions** is selected by default.) Only posts about the
 topic you select appear in the list of posts.
 
-.. _Add a Post Response or Comment:
+.. add something about endorsed posts(?)
+
+.. _Add a Post:
 
 ================================
 Add a Post, Response, or Comment
 ================================
 
-... this is likely to be more interesting and valuable when we add the
-..discussion vs. question differentiation
+.. this section is likely to be more interesting and valuable when we add the discussion vs. question differentiation
+
+::
+
+  Post: "Please introduce yourself."
+    - Reponse: "My name is Lee and I teach maths in Canberra, Australia."
+    - Reponse: "Hello everyone, I am Sumei from Hong Kong, China."
+      - Comment: "Hi Sumei, I am taking this course in Hong Kong too. Maybe we
+        should make a study group!"
+      - Comment: "Me too, I think it will help me keep up with the homework."
+    - Response: "Hi from Johannesburg! I am taking the course to prepare for my
+      matric exams."
+
+This example shows the ways that you can contribute to a discussion. A *post*
+initiates the conversation, a *response* is a reply to the post, and a
+*comment* expands on a particular response. Taking a moment to decide which way
+best suits the contribution you want to make helps keep the discussion
+organized and easier to read.
 
 Add a Post
 **********
 
-To encourage discussion about video lectures, reading assignments, questions,
-and other course content, most courses include discussion topics throughout the
-course. To start a conversation about a specific course components, you click
-**Courseware**, open that part of the course, and then click **New Post**.
+Most edX courses include opportunities to discuss specific video lectures,
+reading assignments, questions, or other course content. Each of these content-
+specific discussion opportunities is called a topic. Most courses also include
+one or more general topics for discussion about course-wide areas of interest,
+such as such as Frequently Asked Questions.
+
+To make sure that other students can find your contributions, try to add them to an appropriate topic. 
+
+To contribute to a discussion . 
+
+#. Click **Courseware**.
+
+#. Open the part of the course that includes the discussion topic that you want to add to.
+
+#. To read what others have already contributed to the conversation, click
+   **Show Discussion**.
+
+   You can scroll through the posts that have already been added: the title and
+   the first sentence or two of each post appear. To read the entire post and
+   view any responses and their comments, click **Expand discussion**.
+  
+#. To add a post about, click **New Post**.
 
  .. image:: /Images/Create_New_Courseware_Post.png
   :alt: Adding a post about specific course content
@@ -88,9 +124,10 @@ text.
 
 Courses also have other discussion topics that are not linked to a particular
 course component, for general-interest topics such as Frequently Asked
-Questions. On the **Discussion** page, you can add a post to a general, course-
-wide topic, or to any of the content-specific topics. To post to any discussion
-topic, click the **Discussion** page and then click **New Post**.
+Questions. On the **Discussion** page, you can add a post to one of these
+general, course- wide topics as well as to any of the content-specific topics .
+To add a post to any discussion topic, click the **Discussion** page and then
+click **New Post**.
 
 When you add a post on the **Discussion** page, you start by selecting
 the most appropriate discussion topic.
@@ -98,13 +135,20 @@ the most appropriate discussion topic.
  .. image:: /Images/Create_New_Post.png
   :alt: Selecting the topic for a new post on the Discussion page 
 
-You then provide a descriptive title and the text for your post.  
+You then provide the descriptive title and text for your post.  
 
 Add a Response or Comment
 **************************
 
-To participate in an ongoing discussion, you can add a response to the initial
-post or you can add a comment about a response.
+To participate in an ongoing discussion, you can either reply to the initial
+post in a response or comment about a response.
+
+.. note:: Before you add a response or a comment, take the time to 
+
+To respond to a post, view the post. Immediately below the post, and above any existing responses to it, click **Add A Response**. You enter 
+
+
+.. images to come
 
 .. _Keep Up with New Activity:
 
