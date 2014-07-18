@@ -4,10 +4,10 @@
 Developing Your Course Outline
 ###################################
 
-As you develop your course, you work primarily in the edX Studio course outline.  See the following information about working with the course outline:
+As you develop your course, you work primarily in the edX Studio course
+outline.  See the following information about working with the course outline:
 
 * `Open the Course Outline`_
-* `How the Course is Organized`_
 * `Example of a Developed Course in the Outline`_
 * `The Student's View of a Developed Course`_
 * `Navigating the Course Outline`_
@@ -28,22 +28,6 @@ The first time you view an outline for a course, it contains no content.
 IMAGE of empty outline
 
 You must :ref:`create the first section<Create a Section>`.
-
-
-****************************
-How the Course is Organized
-****************************
-
-The course is organized in the following levels:
-
-* :ref:`Sections<Developing Course Sections>`, which contain:
-* :ref:`Subsections<DevelopingCourse Subsections>`, which contain:
-* :ref:`Units<Developing Course Units>`, which contain:
-* :ref:`Components<Course Components>`
-  
-Use the links above for more information and instructions on working with each
-type of object in the course. The rest of this chapter describes the course
-organization in the outline.
   
 
 ********************************************************
@@ -56,7 +40,16 @@ to look like this example:
 
 IMAGE with callouts for sections, subsections, units in Studio
 
-show expanding section/subsection
+As this example shows, the course is organized at the following levels:
+
+* :ref:`Sections<Developing Course Sections>`, which contain:
+* :ref:`Subsections<DevelopingCourse Subsections>`, which contain:
+* :ref:`Units<Developing Course Units>`, which contain:
+* :ref:`Components<Course Components>`
+  
+Use the links above for more information and instructions on working with each
+type of object in the course. The rest of this chapter describes the course
+organization in the outline.
 
 
 =============================
