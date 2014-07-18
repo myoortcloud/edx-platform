@@ -15,6 +15,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.core.urlresolvers import reverse
 from contentstore.utils import reverse_usage_url, reverse_course_url
+from contentstore.views.preview import StudioUserService
 
 from contentstore.views.component import (
     component_handler, get_component_templates,
@@ -976,6 +977,8 @@ class TestEditSplitModule(ItemTest):
         split_test = self._assert_children(2)
         group_id_to_child = split_test.group_id_to_child
         self.assertEqual(2, len(group_id_to_child))
+
+        split_test.runtime._services['user'] = StudioUserService(self.request)  # pylint: disable=protected-access
 
         # Call add_missing_groups method to add the missing group.
         split_test.add_missing_groups(self.request)
