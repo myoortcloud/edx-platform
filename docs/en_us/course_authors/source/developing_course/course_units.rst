@@ -1,7 +1,7 @@
-.. _Course Units:
+.. _Developing Course Units:
 
 ###################################
-Course Units
+Developing Course Units
 ###################################
 
 When working with units in the course outline, ensure you understand the

@@ -1,10 +1,10 @@
-.. _Course Subsections:
+.. _Developing Course Subsections:
 
 ###################################
-Course Subections
+Developing Course Subections
 ###################################
 
-When working with subsections in the course outline, ensure you understand the
+To develop subsections in your course, you must first understand the
 following:
 
 * `What is a Subsection?`_

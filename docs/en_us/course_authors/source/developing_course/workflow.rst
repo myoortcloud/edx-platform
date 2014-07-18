@@ -23,9 +23,9 @@ Understanding Course Building Blocks
 Before you begin, you should understand the building blocks of an edX course.
 See:
 
-* :ref:`The Course Outline`
-* :ref:`Course Sections`
-* :ref:`Course Subsections`
+* :ref:`Developing Your Course Outline`
+* :ref:`Developing Course Sections`
+* :ref:`Developing Course Subsections`
 * :ref:`Course Units`
 * :ref:`Course Components`
 

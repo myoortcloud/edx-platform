@@ -1,7 +1,7 @@
 .. _Creating Course Content Index:
 
 ############################
-Creating Course Components
+Creating Course Content
 ############################
 
 

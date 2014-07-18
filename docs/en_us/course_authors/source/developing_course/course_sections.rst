@@ -1,12 +1,10 @@
-.. _Course Sections:
+.. _Developing Course Sections:
 
 ###################################
-Course Sections
+Developing Course Sections
 ###################################
 
-
-When working with sections in the course outline, ensure you understand the
-following:
+To develop sections in your course, you must first understand the following:
 
 * `What is a Section?`_
 * `Viewing Sections in the Outline`_
@@ -37,7 +35,9 @@ section contains one or more subsections.
 Viewing Sections in the Outline
 ********************************
 
-TBP
+The follow example shows how sections appear in the course outline:
+
+IMAGE
 
 
 
@@ -50,9 +50,7 @@ navigation tree. Students can expand one section at a time to see its contents.
 In the following example, two sections are circled:
 
 .. image:: ../Images/sections_student.png
-
-
-
+ :alt: The students view of the course with two sections circled
 
 ************************************************
 Section States

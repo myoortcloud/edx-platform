@@ -1,9 +1,21 @@
-.. _Course Components:
+.. _Developing Course Components:
 
 ###################################
-Course Components
+Developing Course Components
 ###################################
 
+This chapter describes how you develop course components. See:
+
+* `What is a Component?`_
+* `Add a Component`_
+* `Edit a Component`_
+* `Duplicate a Component`_
+* `Delete a Component`_
+
+For more information about specific component types, see:
+
+* :ref:`Creating Course Content Index`
+* :ref:`Exercises and Tools Index`
 
 ********************
 What is a Component?
@@ -20,15 +32,15 @@ unit in the ribbon at the top of the page.
 
 By default, Studio includes four types of components.
 
-- **Discussion components** provide discussion spaces in the body of your
+* **Discussion components** provide discussion spaces in the body of your
   course. Students can explore ideas about a lesson with their peers in a
   discussion space.
-- **HTML components** allow you to add text, images, and some types of learning
+* **HTML components** allow you to add text, images, and some types of learning
   tools to your course. Content in HTML components is formatted as HTML.
-- **Problem components** enable you to add many different types of exercises
+* **Problem components** enable you to add many different types of exercises
   and problems to you course, from simple multiple choice problems to complex
   circuit schematic exercises.
-- **Video components** contain the videos that you want to include in your
+* **Video components** contain the videos that you want to include in your
   course.
 
 .. _Add a Component:
@@ -136,5 +148,4 @@ header:
 .. image:: ../Images/unit-delete.png
   :alt: Image of a unit with Delete icon circled
 
-Click the Delete icon.  Then follow instructions for the type of component you
-are editing.
+Click the Delete icon.  Then confirm the deletion.
