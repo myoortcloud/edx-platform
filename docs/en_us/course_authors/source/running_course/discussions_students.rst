@@ -23,20 +23,74 @@ include ways to:
 
 * :ref:`Report Discussion Misuse`
 
+**********************************
+Anatomy of edX Course Discussions 
+**********************************
+
+====================================
+Posts, Responses, and Comments
+====================================
+
+::
+
+  Post: "Please introduce yourself."
+    - Reponse: "My name is Lee and I teach secondary school maths in Canberra,
+      Australia."
+    - Reponse: "Hello everyone, I am Sumei from Hong Kong, China."
+      - Comment: "Hi Sumei, I am taking this course in Hong Kong too. Maybe we
+        should make a study group!"
+      - Comment: "I'd like to join the Hong Kong study group too, I think it
+        will help me keep up with the homework."
+    - Response: "Hi from Johannesburg! I am taking the course to prepare for my
+      matric exams."
+
+This example shows the different ways that you can contribute to a discussion.
+The *post* initiates the conversation, *responses* are replies to the post, and
+*comments* are additional insights that expand on a specific response. Taking a
+moment to consider which of these options best suits the contribution you want
+to make before you add it helps keep the discussion organized and easy to
+follow.
+
+====================================
+Discussion Topics
+====================================
+
+Most edX courses include opportunities to discuss specific video lectures,
+reading assignments, questions, or other course content. Each of these content-
+specific discussion opportunities is called a *topic*. When these discussion topics are included in a course, they appear below the content they apply to.
+
+.. add image of a topic below a video
+
+Most courses also include one or more topics for discussions about course-wide
+areas of interest, such as Frequently Asked Questions or Troubleshooting. You
+access these topics on the **Discussion** page of the course.
+
+.. add image of Discussion page with list open
+
+When you visit the **Discussion** page, you can read and add to any of the
+discussion topics. Notice that while you can access content-specific topics on
+either the **Discussion** page or in the **Courseware**, you can only access
+the course-wide topics on the **Discussion** page.
+
+Selecting the right topic before you add a post helps assure that others who
+are interested in the same thing will find your post, read it, and respond to
+it.
+
 .. _Find Posts:
 
-==================
+******************************
 Find Posts
-==================
+******************************
 
 Finding out whether someone else has already started a conversation about the
 subject you're interested in, and then reading and contributing to that
-exchange instead of starting a new one, helps make course discussions more
-productive for everyone. You can search for something specific or you can
-browse through the posts in a single discussion topic.
+exchange instead of starting a new one, helps make the time you spend with the
+course discussion more productive. You can search for something specific or you
+can browse through the posts in a single discussion topic.
 
+=======================
 Search the Discussions
-****************************
+=======================
 
 To search for text, click **Discussion** and enter a phrase, a word, or part of
 a word in the **Search all posts** field above the list of posts. When you
@@ -47,16 +101,18 @@ press Enter, the search tries to find:
   interaction.
 
 * A similar value in any post, response, or comment (if no exact matches are
-  found). A "No results found for {text}. Showing results for {similar}" message
-  displays above the posts that have similar text at any interaction level.
+  found). A "No results found for {text}. Showing results for {similar}"
+  message displays above the posts that have similar text at any interaction
+  level.
 
 * Any usernames that are an exact match to your text. A "Show posts by
   {username}" option displays above any posts that have an exact match at any
   interaction level. Click the username in the message to read that user's
   posts, responses, and comments.
 
+==============================================
 Review Posts About a Single Topic
-**************************************
+==============================================
 
 To review posts about a particular part of the course or type of issue, click
 **Discussion** at the top of the page and then select a topic from the drop-
@@ -67,97 +123,126 @@ topic you select appear in the list of posts.
 
 .. _Add a Post:
 
-================================
+************************************
 Add a Post, Response, or Comment
-================================
+************************************
 
 .. this section is likely to be more interesting and valuable when we add the discussion vs. question differentiation
 
-::
-
-  Post: "Please introduce yourself."
-    - Reponse: "My name is Lee and I teach maths in Canberra, Australia."
-    - Reponse: "Hello everyone, I am Sumei from Hong Kong, China."
-      - Comment: "Hi Sumei, I am taking this course in Hong Kong too. Maybe we
-        should make a study group!"
-      - Comment: "Me too, I think it will help me keep up with the homework."
-    - Response: "Hi from Johannesburg! I am taking the course to prepare for my
-      matric exams."
-
-This example shows the ways that you can contribute to a discussion. A *post*
-initiates the conversation, a *response* is a reply to the post, and a
-*comment* expands on a particular response. Taking a moment to decide which way
-best suits the contribution you want to make helps keep the discussion
-organized and easier to read.
-
+================================
 Add a Post
-**********
+================================
 
-Most edX courses include opportunities to discuss specific video lectures,
-reading assignments, questions, or other course content. Each of these content-
-specific discussion opportunities is called a topic. Most courses also include
-one or more general topics for discussion about course-wide areas of interest,
-such as such as Frequently Asked Questions.
+To make sure that other students can find your posts and respond to them, try
+to add them to the most appropriate topic.
 
-To make sure that other students can find your contributions, try to add them to an appropriate topic. 
-
-To contribute to a discussion . 
+Add a Post to a Content-Specific Discussion Topic
+**************************************************
 
 #. Click **Courseware**.
 
-#. Open the part of the course that includes the discussion topic that you want to add to.
+#. Open the part of the course that includes the discussion topic that you want
+   to add to.
 
 #. To read what others have already contributed to the conversation, click
    **Show Discussion**.
 
    You can scroll through the posts that have already been added: the title and
-   the first sentence or two of each post appear. To read the entire post and
-   view any responses and their comments, click **Expand discussion**.
+   the first sentence or two of each post appear. To read the entire post, view
+   the responses to it, and see any comments, click **Expand discussion**.
   
-#. To add a post about, click **New Post**.
+#. To add a post, click **New Post**.
 
  .. image:: /Images/Create_New_Courseware_Post.png
   :alt: Adding a post about specific course content
 
-You supply a short, descriptive **Title** for the post followed by the complete
-text.
+#. Supply a short, descriptive **Title**. The title is what others see when
+   they browse on the **Discussion** page or scroll through one of the content-
+   specific topics.
 
-Courses also have other discussion topics that are not linked to a particular
-course component, for general-interest topics such as Frequently Asked
-Questions. On the **Discussion** page, you can add a post to one of these
-general, course- wide topics as well as to any of the content-specific topics .
-To add a post to any discussion topic, click the **Discussion** page and then
-click **New Post**.
+#. Enter the complete text. Options for formatting the text, and adding links
+   or images, are available: click the buttons above the text field.
 
-When you add a post on the **Discussion** page, you start by selecting
-the most appropriate discussion topic.
+Add a Post to a Course-Wide Discussion Topic
+**************************************************
+
+You can also use this procedure to add a post to any of the content-specific
+discussion topics.
+
+#. Click the **Discussion** page.
+
+#. Click **New Post**.
+
+#. Select the most appropriate discussion topic for your post.
 
  .. image:: /Images/Create_New_Post.png
   :alt: Selecting the topic for a new post on the Discussion page 
 
-You then provide the descriptive title and text for your post.  
+#. Supply a short, descriptive **Title**. The title is what others see when
+   they browse on the **Discussion** page or scroll through one of the content-
+   specific topics.
 
+#. Enter the complete text. Options for formatting the text, and adding links
+   or images, are available: click the buttons above the text field.
+
+===========================
 Add a Response or Comment
-**************************
+===========================
 
-To participate in an ongoing discussion, you can either reply to the initial
-post in a response or comment about a response.
+To participate in an ongoing discussion, you reply to the initial post by
+adding a response, or expand on a particular response by adding a comment.
 
-.. note:: Before you add a response or a comment, take the time to 
+The same options for formatting the text, and for adding links or images, are
+available for responses and comments as for posts.
 
-To respond to a post, view the post. Immediately below the post, and above any existing responses to it, click **Add A Response**. You enter 
+Add a Response or Comment to a Content-Specific Discussion Topic
+****************************************************************
 
+#. Click **Courseware**.
+
+#. Open the part of the course that includes the discussion topic that you want
+   to add to.
+
+#. Click **Show Discussion**.
+
+#. Scroll to the post you want to contribute to.
+
+#. Click **Expand discussion**.
+
+#. To add a response to the post, click **Add A Response** below the post. When
+   your response is complete, click **Submit**.
+
+#. To add a comment to a response, click in the **Add a comment** field below
+   the response. When your comment is complete, click **Submit**.
+
+Add a Response or Comment to a Course-Wide Discussion Topic
+************************************************************
+
+You can also use this procedure to add a response or comment to any of the
+content-specific discussion topics.
+
+#. Click the **Discussion** page.
+
+#. Find the post that you want to contribute to. To help you decide where to
+   add your thoughts, review the current responses and their comments.
+
+#. To add a response to the post, click **Add A Response** below the post. When
+   your response is complete, click **Submit**.
+
+#. To add a comment to a response, click in the **Add a comment** field below
+   the response. When your comment is complete, click **Submit**.   
 
 .. images to come
 
 .. _Keep Up with New Activity:
 
-===========================
+****************************************
 Keep Up with New Activity
-===========================
+****************************************
 
+==============================
 Read New or Updated Posts
-***********************************
+==============================
 
 The list of posts on the **Discussion** page provides visual cues to help you
 identify posts that are new, or that have responses or comments that you have
@@ -180,8 +265,9 @@ recent activity or by most activity. If you sort the list of posts by most
 votes instead, the number of votes that the post has received appears in place
 of the bubble icon. See :ref:`Vote for Posts or Responses`.
 
+==============================
 Receive Daily Digests
-***********************
+==============================
 
 You have the option to receive an email message each day that summarizes
 discussion activity for the posts you are following. To receive this daily
@@ -189,9 +275,9 @@ digest, click **Discussion** and then select the **Receive updates** checkbox.
 
 .. _Follow Posts:
 
-=====================
+************************************
 Follow Posts
-=====================
+************************************
 
 If you find a post particularly interesting and want to return to it in the
 future, you can follow it: view that post and click the star icon in its top
@@ -212,9 +298,9 @@ topic they apply to, click the drop-down Discussion list and select
 
 .. _Vote for Posts or Responses:
 
-===========================
+************************************
 Vote for Posts or Responses
-===========================
+************************************
 
 If you like a post or one of its responses, you can vote for it: view the
 post or response and click the **+** at top right.
@@ -234,9 +320,9 @@ The number of votes that each post has received displays in the list of posts.
 
 .. _Report Discussion Misuse:
 
-===========================
+************************************
 Report Discussion Misuse
-===========================
+************************************
 
 You can flag any post, response, or comment for a discussion moderator to
 review: view the post or response and then click **Report Misuse**. For a
