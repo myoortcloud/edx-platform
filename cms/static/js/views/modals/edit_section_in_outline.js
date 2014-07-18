@@ -5,11 +5,9 @@
  */
 define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
     "js/models/xblock_info", "date", "js/views/utils/xblock_utils",
-    "js/collections/course_grader", "js/views/overview_assignment_grader",
-    "js/utils/get_date"],
+    "js/collections/course_grader", "js/utils/get_date"],
     function($, _, gettext, BaseModal, XBlockInfo, date, XBlockViewUtils,
-        CourseGraderCollection, OverviewAssignmentGrader,
-        DateUtils) {
+        CourseGraderCollection, DateUtils) {
         var EditSectionXBlockModal = BaseModal.extend({
             events : {
                 "click .action-save": "save",
@@ -19,7 +17,7 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
             options: $.extend({}, BaseModal.prototype.options, {
                 modalName: 'edit-xblock',
                 addSaveButton: true,
-                modalSize: 'med'
+                modalSize: 'large'
             }),
 
             initialize: function() {
@@ -29,14 +27,6 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
                 this.xblockInfo = this.options.model;
                 this.date = date;
                 this.graderTypes = new CourseGraderCollection(JSON.parse(this.xblockInfo.get('course_graders')), {parse:true});
-                this.SelectGraderView = OverviewAssignmentGrader.extend({
-                   selectGradeType : function(e) {
-                      e.preventDefault();
-                      this.removeMenu(e);
-                      this.assignmentGrade.set('graderType', ($(e.target).hasClass('gradable-status-notgraded')) ? 'notgraded' : $(e.target).text());
-                      this.render();
-                    }
-                })
             },
 
 
@@ -57,6 +47,7 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
                 return this.template({
                     xblockInfo: this.xblockInfo,
                     getDateTime: this.getDateTime,
+                    graderTypes: this.graderTypes,
                     date: this.date,
                 });
             },
@@ -76,11 +67,7 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
                 BaseModal.prototype.render.call(this);
                 this.$el.find('.date').datepicker({'dateFormat': 'm/d/yy'});
                 this.$el.find('.time').timepicker({'timeFormat' : 'H:i'});
-                new this.SelectGraderView({
-                    el : this.$el.find('.gradable-status'),
-                    graders : this.graderTypes,
-                    hideSymbol : true,
-                 });
+                this.$el.find('.edit-outline-item-modal #grading_type').val(this.xblockInfo.get('format'))
 
                 function removeDateSetter(e) {
                     e.preventDefault();
@@ -104,8 +91,8 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
                 var releaseDatetime, metadata, dueDatetime, graderType, objectToSave;
                 event.preventDefault();
                 releaseDatetime = DateUtils(
-                    $('.edit-section-modal #start_date'),
-                    $('.edit-section-modal #start_time')
+                    $('.edit-outline-item-modal #start_date'),
+                    $('.edit-outline-item-modal #start_time')
                 );
                 // Check releaseDatetime and dueDatetime for sanity?
                  metadata = {
@@ -114,14 +101,11 @@ define(["jquery", "underscore", "gettext", "js/views/modals/base_modal",
                 objectToSave =  {metadata: metadata};
                 if (this.xblockInfo.get('category') === 'sequential') {
                     var dueDatetime = DateUtils(
-                        $('.edit-section-modal #due_date'),
-                        $('.edit-section-modal #due_time')
+                        $('.edit-outline-item-modal #due_date'),
+                        $('.edit-outline-item-modal #due_time')
                     );
                     metadata.due_date = dueDatetime;
-                    graderType = $('.edit-section-modal .gradable .gradable-status .status-label')[0].firstChild.textContent;
-                    if (graderType === "Not Graded") {
-                        graderType = "notgraded";
-                    }
+                    graderType = $('.edit-outline-item-modal #grading_type').val();
                     objectToSave =  {metadata: metadata, graderType: graderType}
                 }
                 XBlockViewUtils.updateXBlockFields(this.xblockInfo, objectToSave, true).done(
