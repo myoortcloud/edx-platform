@@ -54,7 +54,12 @@ comments, and view all of the posts, responses, and comments made by other
 course participants. Discussion threads are saved as part of the course
 history.
 
-..note:: The :ref:`Discussions for Students and Staff` section describes features that are available to all discussion participants. 
+.. note:: 
+  The :ref:`Discussions for Students and Staff` chapter describes features that
+  are available to all discussion participants, and may be useful to students
+  who are new to online discussion forums. You can share the chapter with your
+  students by, for example, adding a "Never Used a Discussion Forum Before?"
+  post that includes the information you think will be most useful to them.
 
 .. _Organizing_discussions:
 
@@ -511,6 +516,4 @@ reopen:
      :alt: Same policy value but with a line feed after each bracket and comma,
          and an indent before each date
 
-For examples of email messages that you can send to let students know when the
-course discussions are closed (or open), see :ref:`Example Messages to
-Students`.
+.. For examples of email messages that you can send to let students know when the course discussions are closed (or open), see :ref:`Example Messages to Students`.

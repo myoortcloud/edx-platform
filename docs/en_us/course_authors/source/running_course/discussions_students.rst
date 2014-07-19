@@ -6,10 +6,11 @@ Participating in Course Discussions
 
 Course discussions give you the opportunity to start conversations with other
 students, ask questions of the course team, and participate in the course
-community.
+community. If you have not previously participated in an online discussion
+forum, this chapter includes an introductory "anatomy" section.
 
-Features of edX discussions that can make your participation more effective
-include ways to:
+This chapter also describes features of edX discussions that can make your
+participation more effective. These include ways to:
 
 * :ref:`Find Posts`
 
@@ -57,24 +58,32 @@ Discussion Topics
 
 Most edX courses include opportunities to discuss specific video lectures,
 reading assignments, questions, or other course content. Each of these content-
-specific discussion opportunities is called a *topic*. When these discussion topics are included in a course, they appear below the content they apply to.
+specific discussion opportunities is called a *topic*. When these discussion
+topics are included in a course, they appear below the content they apply to.
 
-.. add image of a topic below a video
+.. image:: /Images/Discussion_content_specific.png
+ :alt: A discussion topic that appears below a video in the course, identified by a "Show Discussion" link
 
 Most courses also include one or more topics for discussions about course-wide
 areas of interest, such as Frequently Asked Questions or Troubleshooting. You
 access these topics on the **Discussion** page of the course.
 
-.. add image of Discussion page with list open
+.. image:: /Images/Discussion_course_wide.png
+ :alt: Discussion topics are listed on the Discussion page when you click the drop-down list at the left side of the page
 
 When you visit the **Discussion** page, you can read and add to any of the
-discussion topics. Notice that while you can access content-specific topics on
-either the **Discussion** page or in the **Courseware**, you can only access
-the course-wide topics on the **Discussion** page.
+discussion topics. Course-wide topics do not have other topics indented below
+them; content-specific topics are indented under the name of the course section
+where they are found, and are identified by the names of the units in that
+section.
 
-Selecting the right topic before you add a post helps assure that others who
-are interested in the same thing will find your post, read it, and respond to
-it.
+Notice that while you can access content-specific topics on either the
+**Discussion** page or in the **Courseware**, you can only access the course-
+wide topics on the **Discussion** page.
+
+Selecting the most appropriate topic before you add a post helps assure that
+others with the same interest will be able to find your post, read it, and
+respond to it.
 
 .. _Find Posts:
 
@@ -83,10 +92,10 @@ Find Posts
 ******************************
 
 Finding out whether someone else has already started a conversation about the
-subject you're interested in, and then reading and contributing to that
-exchange instead of starting a new one, helps make the time you spend with the
-course discussion more productive. You can search for something specific or you
-can browse through the posts in a single discussion topic.
+same subject that interests you, and then reading and contributing to that
+exchange instead of starting a new one, helps make the time that everyone
+spends with the course discussion more productive. You can search for something
+specific, or you can browse through the posts in a single discussion topic.
 
 =======================
 Search the Discussions
@@ -119,7 +128,7 @@ To review posts about a particular part of the course or type of issue, click
 down list. (**All Discussions** is selected by default.) Only posts about the
 topic you select appear in the list of posts.
 
-.. add something about endorsed posts(?)
+.. add something about endorsed responses(?)
 
 .. _Add a Post:
 
@@ -133,8 +142,8 @@ Add a Post, Response, or Comment
 Add a Post
 ================================
 
-To make sure that other students can find your posts and respond to them, try
-to add them to the most appropriate topic.
+To make sure that other students and the course team can find your posts and
+respond to them, try to add your posts to the most appropriate topic.
 
 Add a Post to a Content-Specific Discussion Topic
 **************************************************
@@ -151,14 +160,14 @@ Add a Post to a Content-Specific Discussion Topic
    the first sentence or two of each post appear. To read the entire post, view
    the responses to it, and see any comments, click **Expand discussion**.
   
-#. To add a post, click **New Post**.
+4. To add a post, click **New Post**.
 
- .. image:: /Images/Create_New_Courseware_Post.png
+.. image:: /Images/Discussion_content_specific_post.png
   :alt: Adding a post about specific course content
 
-#. Supply a short, descriptive **Title**. The title is what others see when
-   they browse on the **Discussion** page or scroll through one of the content-
-   specific topics.
+5. Supply a short, descriptive **Title**. The title is the part of your post
+   that others see when they are browsing on the **Discussion** page or
+   scrolling through one of the content- specific topics.
 
 #. Enter the complete text. Options for formatting the text, and adding links
    or images, are available: click the buttons above the text field.
@@ -175,12 +184,12 @@ discussion topics.
 
 #. Select the most appropriate discussion topic for your post.
 
- .. image:: /Images/Create_New_Post.png
+.. image:: /Images/Discussion_course_wide_post.png
   :alt: Selecting the topic for a new post on the Discussion page 
 
-#. Supply a short, descriptive **Title**. The title is what others see when
-   they browse on the **Discussion** page or scroll through one of the content-
-   specific topics.
+4. Supply a short, descriptive **Title**. The title is the part of your post
+   that others see when they are browsing on the **Discussion** page or
+   scrolling through one of the content- specific topics.
 
 #. Enter the complete text. Options for formatting the text, and adding links
    or images, are available: click the buttons above the text field.
@@ -200,12 +209,12 @@ Add a Response or Comment to a Content-Specific Discussion Topic
 
 #. Click **Courseware**.
 
-#. Open the part of the course that includes the discussion topic that you want
-   to add to.
+#. Open the part of the course with the discussion topic where you want to make
+   your contribution.
 
 #. Click **Show Discussion**.
 
-#. Scroll to the post you want to contribute to.
+#. Scroll to the post where you want to add your thoughts.
 
 #. Click **Expand discussion**.
 
