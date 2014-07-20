@@ -267,11 +267,6 @@ def _make_usage_key(course_key, value):
     Makes value into a UsageKey inside the specified course.
     If value is already a UsageKey, returns that.
     """
-    # When this is called on the published content (to convert vertical locations
-    # in the split_test partition mapping), course_key is the source course.
-    # However, when it is called with draft content, course_key is the
-    # destination course. This causes the vertical locations (which are still
-    # the source course locations) to be populated with the wrong run.
     if isinstance(value, UsageKey):
         return value
     return course_key.make_usage_key_from_deprecated_string(value)

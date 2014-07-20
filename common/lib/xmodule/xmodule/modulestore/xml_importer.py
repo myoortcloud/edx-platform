@@ -353,11 +353,7 @@ def _import_module_and_update_references(
         Otherwise, returns the input value.
         """
         assert isinstance(reference, UsageKey)
-        # For the ReferenceValueDict field in split_test, with draft content
-        # the run is wrong. Therefore the vertical references (one for each group)
-        # are not getting mapped to the destination course on import.
-        # if source_course_id == reference.course_key:
-        if source_course_id.org == reference.course_key.org and source_course_id.course == reference.course_key.course:
+        if source_course_id == reference.course_key:
             return reference.map_into_course(dest_course_id)
         else:
             return reference
@@ -428,7 +424,7 @@ def _import_course_draft(
     draft_course_dir = draft_dir.replace(data_dir, '', 1)
     system = ImportSystem(
         xmlstore=xml_module_store,
-        course_id=target_course_id,
+        course_id=source_course_id,
         course_dir=draft_course_dir,
         error_tracker=errorlog.tracker,
         parent_tracker=ParentTracker(),
