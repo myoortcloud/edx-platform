@@ -353,7 +353,11 @@ def _import_module_and_update_references(
         Otherwise, returns the input value.
         """
         assert isinstance(reference, UsageKey)
-        if source_course_id == reference.course_key:
+        # For the ReferenceValueDict field in split_test, with draft content
+        # the run is wrong. Therefore the vertical references (one for each group)
+        # are not getting mapped to the destination course on import.
+        # if source_course_id == reference.course_key:
+        if source_course_id.org == reference.course_key.org and source_course_id.course == reference.course_key.course:
             return reference.map_into_course(dest_course_id)
         else:
             return reference
@@ -478,21 +482,27 @@ def _import_course_draft(
                         # Not a 'hidden file', then re-raise exception
                         raise err
 
-                    descriptor = system.process_xml(xml)
+                    # process_xml call below recursively processes all descendants. If
+                    # we call this on all verticals in a course with verticals nested below
+                    # the unit level, we try to import the same content twice, causing naming conflicts.
+                    # Therefore only process verticals at the unit level, assuming that any other
+                    # verticals must be descendants.
+                    if 'index_in_children_list' in xml:
+                        descriptor = system.process_xml(xml)
 
-                    # HACK: since we are doing partial imports of drafts
-                    # the vertical doesn't have the 'url-name' set in the
-                    # attributes (they are normally in the parent object,
-                    # aka sequential), so we have to replace the location.name
-                    # with the XML filename that is part of the pack
-                    fn, fileExtension = os.path.splitext(filename)
-                    descriptor.location = descriptor.location.replace(name=fn)
+                        # HACK: since we are doing partial imports of drafts
+                        # the vertical doesn't have the 'url-name' set in the
+                        # attributes (they are normally in the parent object,
+                        # aka sequential), so we have to replace the location.name
+                        # with the XML filename that is part of the pack
+                        fn, fileExtension = os.path.splitext(filename)
+                        descriptor.location = descriptor.location.replace(name=fn)
 
-                    index = int(descriptor.xml_attributes['index_in_children_list'])
-                    if index in drafts:
-                        drafts[index].append(descriptor)
-                    else:
-                        drafts[index] = [descriptor]
+                        index = int(descriptor.xml_attributes['index_in_children_list'])
+                        if index in drafts:
+                            drafts[index].append(descriptor)
+                        else:
+                            drafts[index] = [descriptor]
 
                 except Exception:
                     logging.exception('Error while parsing course xml.')
@@ -511,8 +521,10 @@ def _import_course_draft(
                         # make sure our parent has us in its list of children
                         # this is to make sure private only verticals show up
                         # in the list of children since they would have been
-                        # filtered out from the non-draft store export
-                        if module.location.category == 'vertical':
+                        # filtered out from the non-draft store export.
+                        # Note though that verticals nested below the unit level will not have
+                        # a parent_sequential_url and do not need special handling.
+                        if module.location.category == 'vertical' and 'parent_sequential_url' in module.xml_attributes:
                             non_draft_location = module.location.replace(revision=MongoRevisionKey.published)
                             sequential_url = module.xml_attributes['parent_sequential_url']
                             index = int(module.xml_attributes['index_in_children_list'])
