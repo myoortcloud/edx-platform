@@ -509,10 +509,12 @@ def _import_course_draft(
                 course_key = descriptor.location.course_key
                 try:
                     def _import_module(module):
+                        # IMPORTANT: Be sure to update the module location in the NEW namespace
+                        module_location = module.location.map_into_course(target_course_id)
                         # Update the module's location to DRAFT revision
                         # We need to call this method (instead of updating the location directly)
                         # to ensure that pure XBlock field data is updated correctly.
-                        _update_module_location(module, module.location.replace(revision=MongoRevisionKey.draft))
+                        _update_module_location(module, module_location.replace(revision=MongoRevisionKey.draft))
 
                         # make sure our parent has us in its list of children
                         # this is to make sure private only verticals show up
@@ -527,8 +529,7 @@ def _import_course_draft(
 
                             seq_location = course_key.make_usage_key_from_deprecated_string(sequential_url)
 
-                            # IMPORTANT: Be sure to update the sequential
-                            # in the NEW namespace
+                            # IMPORTANT: Be sure to update the sequential in the NEW namespace
                             seq_location = seq_location.map_into_course(target_course_id)
                             sequential = store.get_item(seq_location, depth=0)
 
