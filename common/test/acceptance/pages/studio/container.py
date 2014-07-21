@@ -112,8 +112,7 @@ class ContainerPage(PageObject):
         self.wait_for_element_visibility(confirmation_button_css, 'Confirmation dialog button is visible')
 
         # Click the confirmation dialog button
-        self.q(css=confirmation_button_css).first.click()
-        wait_for_notification(self)
+        click_css(self, confirmation_button_css, 0)
 
 
     def edit(self):
