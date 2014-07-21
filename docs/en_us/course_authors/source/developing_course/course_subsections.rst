@@ -226,12 +226,16 @@ To change a subsection name, click the Edit icon next to the subsection name.
 The name field becomes writable. Enter the new name and tab out of the field to
 save it.
 
+.. _Set the Assignment Type and Due Date for a Subsection:
 
 ********************************************************
 Set the Assignment Type and Due Date for a Subsection
 ********************************************************
 
 
+
+
+For more information, see :ref:`Establish a Grading Policy`.
 
 
 

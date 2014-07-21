@@ -23,4 +23,4 @@ Index`.
    course_units
    course_components
    testing_courseware
-   releasing_courseware
+   controlling_content_visibility

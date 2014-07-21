@@ -11,7 +11,6 @@ following:
 * `Viewing Units in the Outline`_
 * `Viewing Units as a Student`_
 * `Unit States`_
-* `The Unit User Interface`_
 
 Unit tasks:
 
@@ -20,6 +19,7 @@ Unit tasks:
 * `Reorganize Units`_
 * `Hide a Unit from Students`_
 * `Publish a Unit`_
+* `Discard Changes to a Unit`_
 * `View a Published Unit`_
 * `Delete a Unit`_
 
@@ -32,9 +32,11 @@ Components>`.
 What is a Unit?
 ****************************
 
-A unit is a part of a subsection. A subsection contains one or more units.
-Subsections are divided into units. A unit, in turn, contains one or more
-components, such as HTML content, problems, discussions, and videos.
+A unit is a part of a :ref:`subsection<Developing Course Subsections>` that students view as a single page. 
+
+A subsection contains one or more units.
+
+A unit contains one or more :ref:`components<Developing Course Components>`, such as HTML content, problems, discussions, and videos.
 
 
 ****************************
@@ -49,7 +51,10 @@ Viewing Units as a Student
 
 To a student using the edX Learning Management System, each unit in the
 subsection appears as a link on the course ribbon at the top of the page. The
-following image shows a subsection that has seven units, which are circled in the ribbon above the video:
+active unit is open beneath the course ribbon.
+
+The following image shows a subsection that has seven units, which are circled
+in the ribbon above the video, with the first unit open:
 
 .. image:: ../Images/Units_LMS.png
  :alt: Image of units from the student's point of view
@@ -60,19 +65,20 @@ following image shows a subsection that has seven units, which are circled in th
 The Unit Workflow
 ************************************************
 
-When you have set up the section and subsection in the course outline, you work
-with units.
+When you have set up the :ref:`section<Developing Course Sections>` and
+:ref:`subsection<Developing Course Subsections>` in the course outline, you
+work with units.
 
 The typical workflow is:
 
-#. Create a new unit.
-#. Add components to the unit.
-#. Publish the unit.
+#. :ref:`Create a new unit<Create a Unit>`.
+#. :ref:`Add components to the unit<Add a Component>`.
+#. :ref:`Publish the unit<Publish a Unit>`.
    
 After you publish the unit, you can:
 
-#. Modify components in the unit.
-#. Publish the changes to the unit.
+#. :ref:`Modify components in the unit<Developing Course Components>`.
+#. :ref:`Publish the changes to the unit<Publish a Unit>`.
    
 ADD WORKFLOW IMAGE
    
@@ -92,6 +98,7 @@ As an course author, you work with units in the following states:
 * `Draft (Never Published)`_
 * `Published`_
 * `Draft (Unpublished Changes)`_
+* `Unpublished (Staff Only)`_
 
 ========================
 Draft (Never Published)
@@ -100,13 +107,15 @@ Draft (Never Published)
 When you create a new unit and add components to it, the unit is in the state
 **Draft (Never Published)**, as shown in the right panel:
 
-IMAGE
+.. image:: ../Images/unit-never-published.png
+ :alt: Status panel of a unit that has never been published
 
 The unit does not appear in the ribbon for the subsection in the LMS. Students
 do not see a Draft (Never Published) unit. Though you do not see the unit in
-the LMS, you can preview the unit LINK.
+the LMS, you can :ref:`preview the unit<Preview a Unit>`.
 
-You must publish the unit (ADD LINK) for it to be included in the LMS.
+You must :ref:`publish the unit<Publish a Unit>` for it to be included in the
+LMS.
 
 ==========
 Published
@@ -115,11 +124,12 @@ Published
 When you publish a unit, the unit is in the state **Published**, as shown in
 the right panel:
 
-IMAGE
+.. image:: ../Images/unit-published.png
+ :alt: Status panel of a unit that is published
 
 The unit may or may not be visible to students, depending on the release date
 and whether or not you chose to hide the unit from students. For more
-information, see LINK
+information, see :ref:`Controlling Content Visibility`.
 
 
 ===========================
@@ -129,11 +139,30 @@ Draft (Unpublished Changes)
 When you edit a published unit, its state changes to **Draft (Unpublished
 Changes)**, as shown in the right panel:
 
-IMAGE
+.. image:: ../Images/unit-pending-changes.png
+ :alt: Status panel of a unit that has pending changes
 
 The unit as shown in the LMS does not contain your changes until you publish
 them; the LMS shows the last published version of the unit.
 
+You can :ref:`preview the changes to a unit<Preview a Unit>`.
+
+You must :ref:`publish the changes to the unit<Publish a Unit>` for those
+changes to be live for students and in the LMS.
+
+===========================
+Unpublished (Staff Only)
+===========================
+
+When you hide a unit from students, the state changes to **Unpublished (Staff
+Only)**.
+
+.. image:: ../Images/unit-unpublished.png
+ :alt: Status panel of a unit that has pending changes
+
+Regardless of release dates, students will never see a unit in this state.
+
+See `Hide a Unit from Students`_ for more information.
 
 .. _Unit States and Visibility to Students:
 
@@ -141,36 +170,20 @@ them; the LMS shows the last published version of the unit.
 Unit States and Visibility to Students
 ************************************************
 
-Students never see a unit that is in the state Draft (Never Published).
+The following information summarizes whether or not students can see a unit.
 
-If the state is Published or Draft (Unpublished Changes), students see the last
-published version of the unit if the following conditions are met:
+* Students never see a unit that is in the state `Draft (Never Published)`_.
 
-* The release date for the containing section and subsection has passed. LINK
-  TO RELEASE DATES.
+* If the state is `Published`_ or `Draft (Unpublished Changes)`_, students see
+  the last published version of the unit if the following conditions are met:
 
-* The unit was was not hidden from students. LINK TO HIDE FROM STUDENTS TASK
+  * The release date for the containing section and subsection has passed. See
+    :ref:`Schedule Release Dates` for more information.
 
+  * The unit was was not hidden from students. See
+    :ref:`Hide Content From Students` for more information.
 
-.. _The Unit User Interface:
-
-************************************************
-The Unit User Interface
-************************************************
-
-==============
-Release Dates
-==============
-
-===========
-Icons
-===========
-
-===========
-Colors
-===========
-
-
+For more information, see :ref:`Controlling Content Visibility`.
 
 .. _Create a Unit:
 
@@ -204,6 +217,8 @@ To create a new unit from a unit page:
    coursware.
 #. :ref:`Add components<Add a Component>` to the new unit as needed.
 
+.. _Preview a Unit:
+
 ****************************
 Preview a Unit
 ****************************
@@ -235,16 +250,64 @@ The unit opens in preview mode:
 Reorganize Units
 ************************************************
 
+TBP DRAG & DROP in OUTLINE
 
 ****************************
 Hide a Unit from Students
 ****************************
+
+You can prevent students from seeing a unit regardless of the unit state or the
+release schedules of the section and subsection.
+
+Check **Hide from Students** in the status panel:
+
+.. image:: ../Images/unit-hide.png
+ :alt: Unit status panel with Hide from Students checked
+
+For more information, see :ref:`Controlling Content Visibility`.
+
 
 .. _Publish a Unit:
 
 ****************************
 Publish a Unit
 ****************************
+
+Publishing a unit makes the current version of the unit in Studio available to
+students.  If the release date for the section and subsection have passed, and
+you did not hide the unit from students, students can see the published unit.
+
+You publish a unit that is in the state `Draft (Never Published)` or `Draft
+(Unpublished Changes)`.
+
+To publish the unit, click **Publish** in the status panel:
+
+.. image:: ../Images/unit-publish-button.png
+ :alt: Unit status panel with Publish button circled
+
+
+.. _Discard Changes to a Unit:
+
+****************************
+Discard Changes to a Unit
+****************************
+
+When you modify a published unit, your changes are saved in Studio, though the
+changes aren't visible to students until you publish the unit again.
+
+In certain situations, you may decide that you never want to publish your
+changes. You can discard the changes to that Studio saves the last published
+version of the unit.
+
+To discard changes and revert the studio version of the unit to the last
+published version, click Discard Changes in the status panel:
+
+.. image:: ../Images/unit-discard-changes.png
+ :alt: Unit status panel with Discard Changes circled
+
+.. caution::
+ When you discard changes to a unit, the changes are permanently deleted. You
+ cannot retrieve discarded changes or undo the action.
 
 
 .. _View a Published Unit:
@@ -253,11 +316,26 @@ Publish a Unit
 View a Published Unit
 ****************************
 
+To view the last version of a unit in the LMS, click **View Published
+Version**.
 
+.. image:: ../Images/unit_view_live_button.png
+ :alt: Unit page with View Published Version button circled
+
+The unit page opens in the LMS in Staff view. You may be prompted to log in to
+the LMS.
+
+If the unit status is `Draft (Unpublished Changes)`_, you do no see your
+changes in the LMS until you publish the unit again.
+
+If the unit status is `Draft (Never Published)`_, the **View Published
+Version** button is not enabled.
 
 ********************************
 Delete a Unit
 ********************************
 
+You delete a unit from the course outline.
 
+STEPS TBP.
 
