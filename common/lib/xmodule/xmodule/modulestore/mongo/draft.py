@@ -103,7 +103,7 @@ class DraftModuleStore(MongoModuleStore):
         elif revision == ModuleStoreEnum.RevisionOption.draft_only:
             return get_draft()
 
-        elif self.branch_setting_func() == ModuleStoreEnum.Branch.published_only:
+        elif self.get_branch_setting() == ModuleStoreEnum.Branch.published_only:
             return get_published()
 
         else:
@@ -137,7 +137,7 @@ class DraftModuleStore(MongoModuleStore):
         if revision == ModuleStoreEnum.RevisionOption.draft_only:
             return has_draft()
         elif revision == ModuleStoreEnum.RevisionOption.published_only \
-                or self.branch_setting_func() == ModuleStoreEnum.Branch.published_only:
+                or self.get_branch_setting() == ModuleStoreEnum.Branch.published_only:
             return has_published()
         else:
             key = usage_key.to_deprecated_son(prefix='_id.')
@@ -282,7 +282,7 @@ class DraftModuleStore(MongoModuleStore):
         '''
         if revision is None:
             revision = ModuleStoreEnum.RevisionOption.published_only \
-                if self.branch_setting_func() == ModuleStoreEnum.Branch.published_only \
+                if self.get_branch_setting() == ModuleStoreEnum.Branch.published_only \
                 else ModuleStoreEnum.RevisionOption.draft_preferred
         return super(DraftModuleStore, self).get_parent_location(location, revision, **kwargs)
 
@@ -351,7 +351,7 @@ class DraftModuleStore(MongoModuleStore):
         if revision == ModuleStoreEnum.RevisionOption.draft_only:
             return draft_items()
         elif revision == ModuleStoreEnum.RevisionOption.published_only \
-                or self.branch_setting_func() == ModuleStoreEnum.Branch.published_only:
+                or self.get_branch_setting() == ModuleStoreEnum.Branch.published_only:
             return published_items([])
         else:
             draft_items = draft_items()
@@ -742,7 +742,7 @@ class DraftModuleStore(MongoModuleStore):
         for non_draft in to_process_non_drafts:
             to_process_dict[Location._from_deprecated_son(non_draft["_id"], course_key.run)] = non_draft
 
-        if self.branch_setting_func() == ModuleStoreEnum.Branch.draft_preferred:
+        if self.get_branch_setting() == ModuleStoreEnum.Branch.draft_preferred:
             # now query all draft content in another round-trip
             query = []
             for item in items:
@@ -796,7 +796,7 @@ class DraftModuleStore(MongoModuleStore):
         """
         Raises an exception if the current branch setting does not match the expected branch setting.
         """
-        actual_branch_setting = self.branch_setting_func()
+        actual_branch_setting = self.get_branch_setting()
         if actual_branch_setting != expected_branch_setting:
             raise InvalidBranchSetting(
                 expected_setting=expected_branch_setting,

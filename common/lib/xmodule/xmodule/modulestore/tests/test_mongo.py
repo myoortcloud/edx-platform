@@ -13,6 +13,7 @@ from uuid import uuid4
 from datetime import datetime
 from pytz import UTC
 import unittest
+from mock import MagicMock
 from xblock.core import XBlock
 
 from xblock.fields import Scope, Reference, ReferenceList, ReferenceValueDict
@@ -102,11 +103,14 @@ class TestMongoModuleStore(unittest.TestCase):
         #
         # Also test draft store imports
         #
+        request_cache = MagicMock()
+        request_cache.data = {}
         draft_store = DraftModuleStore(
             content_store,
             doc_store_config, FS_ROOT, RENDER_TEMPLATE,
             default_class=DEFAULT_CLASS,
-            branch_setting_func=lambda: ModuleStoreEnum.Branch.draft_preferred
+            branch_setting_func=lambda: ModuleStoreEnum.Branch.draft_preferred,
+            request_cache=request_cache,
         )
         import_from_xml(
             draft_store,

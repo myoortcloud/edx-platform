@@ -19,6 +19,7 @@ from contextlib import contextmanager, nested
 from unittest import SkipTest
 from shutil import rmtree
 from tempfile import mkdtemp
+from mock import MagicMock
 from opaque_keys.edx.locations import SlashSeparatedCourseKey
 
 from xmodule.tests import CourseComparisonTest
@@ -88,6 +89,8 @@ class MongoModulestoreBuilder(object):
         # Set up a temp directory for storing filesystem content created during import
         fs_root = mkdtemp()
 
+        request_cache = MagicMock()
+        request_cache.data = {}
         modulestore = DraftModuleStore(
             contentstore,
             doc_store_config,
@@ -95,6 +98,7 @@ class MongoModulestoreBuilder(object):
             render_template=repr,
             branch_setting_func=lambda: ModuleStoreEnum.Branch.draft_preferred,
             metadata_inheritance_cache_subsystem=MemoryCache(),
+            request_cache=request_cache,
         )
 
         try:

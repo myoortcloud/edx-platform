@@ -542,14 +542,12 @@ class ModuleStoreReadBase(ModuleStoreRead):
     @contextmanager
     def branch_setting(self, branch_setting, course_id=None):
         """
-        A context manager for temporarily setting a store's branch value
+        A context manager for temporarily setting the branch value for the store
+        to the given branch_setting.
         """
-        previous_branch_setting_func = getattr(self, 'branch_setting_func', None)
-        try:
-            self.branch_setting_func = lambda: branch_setting
-            yield
-        finally:
-            self.branch_setting_func = previous_branch_setting_func
+        if branch_setting != ModuleStoreEnum.Branch.published_only:
+            raise ValueError(u"Cannot set branch setting to {} on a ReadOnly store".format(branch_setting))
+        yield
 
 
 class ModuleStoreWriteBase(ModuleStoreReadBase, ModuleStoreWrite):

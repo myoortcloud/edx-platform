@@ -1,7 +1,7 @@
 import pymongo
 from uuid import uuid4
 import ddt
-from mock import patch
+from mock import MagicMock
 from importlib import import_module
 from collections import namedtuple
 import unittest
@@ -172,7 +172,8 @@ class TestMixedModuleStore(unittest.TestCase):
         def create_sub_tree(parent, block_info):
             block = self.store.create_child(
                 self.user_id, parent.location.version_agnostic(),
-                block_info.category, block_id=block_info.display_name
+                block_info.category, block_id=block_info.display_name,
+                fields={'display_name': block_info.display_name},
             )
             for tree in block_info.sub_tree:
                 create_sub_tree(block, tree)
@@ -738,6 +739,64 @@ class TestMixedModuleStore(unittest.TestCase):
         self.assertTrue(self.store.has_changes(item.location))
         self.assertEquals(self.store.compute_publish_state(item), PublishState.draft)
 
+    @ddt.data('draft')
+    def test_branch_setting(self, default_ms):
+        """
+        Test the branch_setting context manager
+        """
+        self.initdb(default_ms)
+        self._create_block_hierarchy()
+
+        problem_location = self.problem_x1a_1
+        problem_original_name = 'Problem_x1a_1'
+        problem_new_name = 'New Problem Name'
+        course_key = problem_location.course_key
+
+        def assertProblemNameEquals(expected_display_name):
+            problem = self.store.get_item(problem_location)
+            self.assertIsNotNone(problem)
+            self.assertEquals(problem.display_name, expected_display_name)
+
+        # verify Draft problem
+        with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
+            assertProblemNameEquals(problem_original_name)
+
+        # verify Published problem doesn't exist
+        with self.assertRaises(ItemNotFoundError):
+            with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+                self.store.get_item(problem_location)
+
+        # publish the problem
+        self.store.publish(problem_location, self.user_id)
+
+        # verify Published problem
+        with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            assertProblemNameEquals(problem_original_name)
+
+        # verify Draft-preferred
+        with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
+            assertProblemNameEquals(problem_original_name)
+
+        # edit name
+        problem = self.store.get_item(problem_location)
+        problem.display_name = problem_new_name
+        self.store.update_item(problem, self.user_id)
+
+        # verify Draft problem has new name
+        with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
+            assertProblemNameEquals(problem_new_name)
+
+        # verify Published problem still has old name
+        with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            assertProblemNameEquals(problem_original_name)
+
+        # publish the problem
+        self.store.publish(problem_location, self.user_id)
+
+        # verify Published problem has new name
+        with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            assertProblemNameEquals(problem_new_name)
+
 
 #=============================================================================================================
 # General utils for not using django settings
@@ -762,9 +821,13 @@ def create_modulestore_instance(engine, contentstore, doc_store_config, options,
     """
     class_ = load_function(engine)
 
+    request_cache = MagicMock()
+    request_cache.data = {}
+
     return class_(
         doc_store_config=doc_store_config,
         contentstore=contentstore,
+        request_cache=request_cache,
         branch_setting_func=lambda: ModuleStoreEnum.Branch.draft_preferred,
         **options
     )
