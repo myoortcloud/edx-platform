@@ -59,7 +59,7 @@ Discussion Topics
 Most edX courses include opportunities to discuss specific video lectures,
 reading assignments, questions, or other course content. Each of these content-
 specific discussion opportunities is called a *topic*. When these discussion
-topics are included in a course, they appear below the content they apply to.
+topics are included in a course, they typically appear below the content they apply to.
 
 .. image:: /Images/Discussion_content_specific.png
  :alt: A discussion topic that appears below a video in the course, identified by a "Show Discussion" link
@@ -72,10 +72,11 @@ access these topics on the **Discussion** page of the course.
  :alt: Discussion topics are listed on the Discussion page when you click the drop-down list at the left side of the page
 
 When you visit the **Discussion** page, you can read and add to any of the
-discussion topics. Course-wide topics do not have other topics indented below
-them; content-specific topics are indented under the name of the course section
-where they are found, and are identified by the names of the units in that
-section.
+discussion topics. 
+
+* Course-wide topics do not have other topics indented below them.
+
+* Content-specific topics are indented under an identifying category name. 
 
 Notice that while you can access content-specific topics on either the
 **Discussion** page or in the **Courseware**, you can only access the course-
