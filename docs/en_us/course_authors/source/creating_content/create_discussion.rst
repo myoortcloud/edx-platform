@@ -51,7 +51,7 @@ Private Units`.
    .. image:: ../Images/DiscussionComponentEditor.png
     :alt: Image of the discussion component editor with a category of "Getting Graded" and a Subcategory of "Answering More Than Once"
 
-   The **Display Name** that you provide appears above the discussion in the
+   The **Display Name** that you provide identifies the discussion in the
    course content. The **Category** and **Subcategory** names appear in the
    list of discussion topics on the **Discussion** page. To uniquely identify
    the discussion in your course, each **Category** / **Subcategory** pair that
@@ -94,7 +94,7 @@ components:
 In the **Discussion** tab at the top of the page, students can find the category
 and subcategory of the discussion in the left pane.
 
-.. image:: ../Images/DiscussionComponent_Forum.png
- :alt: Image of the discussion page from a student's point of view
+.. image:: ../Images/Discussion_category_subcategory.png
+ :alt: Image of the Discussion page from a student's point of view
 
 
