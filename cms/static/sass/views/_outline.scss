@@ -131,7 +131,7 @@
     .add-item {
       margin-top: ($baseline*0.75);
 
-      .action-add {
+      .button-new {
         @extend %ui-btn-flat-outline;
         padding: ($baseline/2) $baseline;
         display: block;
