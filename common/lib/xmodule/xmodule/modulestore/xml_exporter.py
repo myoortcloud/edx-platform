@@ -15,7 +15,7 @@ import json
 import os
 from path import path
 import shutil
-from xmodule.modulestore.mongo.base import DIRECT_ONLY_CATEGORIES
+from xmodule.modulestore.store_utilities import DIRECT_ONLY_CATEGORIES
 
 DRAFT_DIR = "drafts"
 PUBLISHED_DIR = "published"

@@ -17,9 +17,9 @@ from xmodule.modulestore.exceptions import (
 )
 from xmodule.modulestore.mongo.base import (
     MongoModuleStore, MongoRevisionKey, as_draft, as_published,
-    DIRECT_ONLY_CATEGORIES, SORT_REVISION_FAVOR_DRAFT
+    SORT_REVISION_FAVOR_DRAFT
 )
-from xmodule.modulestore.store_utilities import rewrite_nonportable_content_links
+from xmodule.modulestore.store_utilities import rewrite_nonportable_content_links, DIRECT_ONLY_CATEGORIES
 
 log = logging.getLogger(__name__)
 

@@ -4,6 +4,9 @@ import logging
 from xmodule.contentstore.content import StaticContent
 
 
+# Things w/ these categories should never be marked as version=DRAFT
+DIRECT_ONLY_CATEGORIES = ['course', 'chapter', 'sequential', 'about', 'static_tab', 'course_info']
+
 def _prefix_only_url_replace_regex(prefix):
     """
     Match static urls in quotes that don't end in '?raw'.
