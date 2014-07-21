@@ -47,20 +47,30 @@
 
   // page header
   // --------------------
-  .toggle-button-sections {
-    @extend %t-copy-sub2;
-    position: relative;
-    display: none;
-    float: right;
-    margin-top: ($baseline/4);
-    color: $gray-l1;
+  .button-toggle-expand-collapse {
 
-    &.is-shown {
-      display: block;
+    // STATE: action will collapse all
+    &.collapse-all {
+
+      .expand-all {
+        display: none;
+      }
+
+      .collapse-all {
+        display: block;
+      }
     }
 
-    .label {
-      display: inline-block;
+    // STATE: action will expand all
+    &.expand-all {
+
+      .collapse-all {
+        display: none;
+      }
+
+      .expand-all {
+        display: block;
+      }
     }
   }
 
