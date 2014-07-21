@@ -13,6 +13,9 @@ July, 2014
 
    * - Date
      - Change
+   * - 07/21/14
+     - Expanded the :ref:`Discussions for Students and Staff` chapter to
+       include information about adding posts, responses, and comments.
    * - 07/15/14
      - Added the :ref:`Discussions for Students and Staff` chapter.
    * - 07/11/14
