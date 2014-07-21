@@ -275,6 +275,7 @@ milestones, as models for your own course communications.
 * :ref:`Launch Day Welcome`
 * :ref:`Midcourse Encouragement`
 * :ref:`Midcourse Events`
+* :ref:`Technical Issue`
 * :ref:`Course Farewell and Certificates`
 
 These messages are styled as email messages, but you could also post this
@@ -478,6 +479,44 @@ information for your course.
     staff has to communicate any delays, corrections, or changes.
 
   Good luck!
+
+  {name} and the {course number} staff
+
+.. _Technical Issue:
+
+=========================================
+Technical Issue
+=========================================
+
+In the event of an unanticipated system failure, a message can reassure
+students that the course team knows about the issue and that it is either
+resolved or being addressed. The message can also provide information about any
+changes made to the course as a result.
+
+Technical issues can arise during a course for many different reasons, so this
+example, which is based on the failure of an external grader, may need
+significant revision to apply to an issue that you encounter. Keep in mind that
+to reassure the students who are affected by the problem, the message should
+have a positive tone, and calmly and briefly identify the problem, the status
+of its solution, and any after effects.
+
+::
+
+  Dear students,
+
+  On {date} at {time} UTC, the {name} {became unavailable / was affected by a
+  service problem}. {This issue was resolved at {date} at {time} UTC. / This
+  issue has been reported {to edX} and is being resolved.} 
+
+  As a result of this issue, we have {increased the number of submissions
+  allowed for homework {number} / extended the deadline for homework {number}
+  by 24 hours. It is now due on {date} at {time} UTC.}
+
+  When a technical issue like this one occurs, the course staff also posts
+  messages in the {topic name} discussion and on the course Updates and News
+  page.
+
+  We thank you for your patience,
 
   {name} and the {course number} staff
 
