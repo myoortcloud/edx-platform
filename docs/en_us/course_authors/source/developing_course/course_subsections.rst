@@ -205,7 +205,16 @@ For more information, see :ref:`Establish a Grading Policy`.
 Create a Subsection
 ****************************
 
-TBP
+To create a new subsection:
+
+#. In the outline, expand the section in which you want to create a new
+   subsection.
+#. Click **New Subsection** at the bottom of the expanded section. A new
+   subsection is added at the end of the section.
+#. Click the Edit icon next to the new subsection name, then enter the name for
+   the new subsection. Remember that students see the subsection name in the
+   coursware.
+#. :ref:`Add units<Create a Unit>` to the new subsection as needed.
 
 
 
@@ -213,12 +222,15 @@ TBP
 Change a Subsection Name
 ********************************
 
+To change a subsection name, click the Edit icon next to the subsection name.
+The name field becomes writable. Enter the new name and tab out of the field to
+save it.
+
 
 ********************************************************
 Set the Assignment Type and Due Date for a Subsection
 ********************************************************
 
-TBP
 
 
 
@@ -235,7 +247,6 @@ Set a Subsection Release Date
 Hide a Subsection from Students
 ***********************************
 
-TBP
 
 
 
@@ -243,6 +254,8 @@ TBP
 ********************************
 Reorganize Subsection
 ********************************
+
+
 
 .. _Delete a Subsection:
 

@@ -4,7 +4,8 @@
 Getting Started with Course Content Development
 ###############################################
 
-When you are done :ref:`Setting up your Course Index`, you are ready to build your course content.
+When you are done :ref:`Setting up your Course Index`, you are ready to build
+your course content.
 
 This chapter provides an outline of the steps involved in developing your
 course content, with links to more details.
@@ -26,8 +27,8 @@ See:
 * :ref:`Developing Your Course Outline`
 * :ref:`Developing Course Sections`
 * :ref:`Developing Course Subsections`
-* :ref:`Course Units`
-* :ref:`Course Components`
+* :ref:`Developing Course Units`
+* :ref:`Developing Course Components`
 
 .. _Creating New Course Content:
 
@@ -56,7 +57,9 @@ See:
 Making Course Content Visible to Students
 ******************************************
 
-If and when the content you create is visible to students depends on the section and subsection release dates, the publishing status of the unit, and whether content at any level is explicitly hidden from students.
+If and when the content you create is visible to students depends on the
+section and subsection release dates, the publishing status of the unit, and
+whether content at any level is explicitly hidden from students.
 
 See:
 
@@ -65,18 +68,19 @@ See:
 * :ref:`Hide Content From Students`
 
 
-
-
 .. _Revising Content:
 
 ****************************
 Revising Content
 ****************************
 
+You can revise your course content at any time. When you reorganize sections and subsections, the new order is immediately visible to students. When you change a unit, or components within a unit, you must publish those changes to make them visible to students.
+
 WORKFLOW DIAGRAM
 
-#. :ref:`Reorganize the Course Outline`
-#. :ref:`Reorganize Units`
-#. :ref:`Add<Add a Component>`, :ref:`edit<Edit a Component>`, or :ref:`delete<Delete a Component>` components.
-#. :ref:`Publish a Unit`
+* :ref:`Reorganize the Course Outline`
+* :ref:`Reorganize Units`
+* :ref:`Add<Add a Component>`, :ref:`edit<Edit a Component>`, or
+  :ref:`delete<Delete a Component>` components.
+* :ref:`Publish a Unit`
    

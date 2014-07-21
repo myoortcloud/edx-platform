@@ -167,17 +167,22 @@ in the section. Students may not see content in:
 Create a Section
 ****************************
 
-TBP
+To create a new section:
 
+#. Click **New Section** at the top of the outline. A new section is added at
+   the end of the course content.
+#. Click the Edit icon next to the new section name, then enter the name for
+   the new section. Remember that students see the section name in the
+   coursware.
+#. :ref:`Add subsections<Create a Subsection>` to the new section as needed.
 
 
 ********************************
 Change a Section Name
 ********************************
 
-
-
-
+To edit a section name, click the Edit icon next to the section name. The name
+field becomes writable. Enter the new name and tab out of the field to save it.
 
 
 ********************************

@@ -9,7 +9,7 @@ outline.  See the following information about working with the course outline:
 
 * `Open the Course Outline`_
 * `Example of a Developed Course in the Outline`_
-* `The Student's View of a Developed Course`_
+* `Viewing the Course Organization as a Student`_
 * `Navigating the Course Outline`_
 * `Reorganize the Course Outline`_
 * `The Course Outline User Interface`_
@@ -43,24 +43,14 @@ IMAGE with callouts for sections, subsections, units in Studio
 As this example shows, the course is organized at the following levels:
 
 * :ref:`Sections<Developing Course Sections>`, which contain:
-* :ref:`Subsections<DevelopingCourse Subsections>`, which contain:
+* :ref:`Subsections<Developing Course Subsections>`, which contain:
 * :ref:`Units<Developing Course Units>`, which contain:
-* :ref:`Components<Course Components>`
+* :ref:`Components<Developing Course Components>`, which are not shown in the
+  outline.
   
 Use the links above for more information and instructions on working with each
 type of object in the course. The rest of this chapter describes the course
 organization in the outline.
-
-
-=============================
-Navigating the Course Outline
-=============================
-
-Expand/collapse
-View object details
-
-
-
 
 ********************************************************
 Viewing the Course Organization as a Student
@@ -73,7 +63,16 @@ course content:
 .. image:: ../Images/Course_Outline_LMS.png
  :alt: Image of course conent from student's point of view
 
-REDO
+.. _Navigating the Course Outline:
+
+*******************************
+Navigating the Course Outline
+*******************************
+
+Expand/collapse
+View object details
+
+
 
 
 .. _Reorganize the Course Outline:

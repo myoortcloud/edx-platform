@@ -16,7 +16,6 @@ following:
 Unit tasks:
 
 * `Create a Unit`_
-
 * `Preview a Unit`_
 * `Reorganize Units`_
 * `Hide a Unit from Students`_
@@ -24,7 +23,8 @@ Unit tasks:
 * `View a Published Unit`_
 * `Delete a Unit`_
 
-You add content to units with :ref:`Course Components`.
+You add content to units with :ref:`course components<Developing Course
+Components>`.
 
 .. _What is a Unit?:
 
@@ -178,11 +178,56 @@ Colors
 Create a Unit
 ****************************
 
+To create a new unit from the outline:
+
+#. In the outline, expand the subsection in which you want to create a new
+   unit.
+#. Click **New Unit** at the bottom of the expanded subsection. A new
+   unit is added at the end of the subsection.
+#. Click the unit name to open the new unit.
+#. On the unit page, click the Edit icon next to the new unit name, then enter
+   the name for the new unit. Remember that students see the unit name in the
+   coursware.
+#. :ref:`Add components<Add a Component>` to the new unit as needed.
+
+To create a new unit from a unit page:
+
+#. In the **Unit Location** panel, click **New Unit**.
+
+   .. image:: ../Images/unit_location.png
+    :alt: The Unit Location panel in the Unit page
+
+   The unit page for the new unit opens automatically.
+
+#. On the unit page, click the Edit icon next to the new unit name, then enter
+   the name for the new unit. Remember that students see the unit name in the
+   coursware.
+#. :ref:`Add components<Add a Component>` to the new unit as needed.
 
 ****************************
 Preview a Unit
 ****************************
 
+You preview a unit to review and test the content before it is visible to
+students.
+
+You can preview a unit before it is published and when there are unpublished
+changes. When the unit is published and there are no pending changes, you
+cannot preview the unit; you must view the live version of the unit.
+
+When you are revising a previously published unit, it is helpful to preview
+your changes in one window and :ref:`view the published unit<View a Published Unit>` in a second window and
+compare the content.
+
+To preview the unit, in the unit page, click **Preview Changes**.
+
+.. image:: ../Images/preview_changes.png
+ :alt: The Unit page with Preview Changes button circled
+
+The unit opens in preview mode:
+
+.. image:: ../Images/preview_mode.png
+ :alt: The unit in preview mode
 
 .. _Reorganize Units:
 
@@ -202,6 +247,7 @@ Publish a Unit
 ****************************
 
 
+.. _View a Published Unit:
 
 ****************************
 View a Published Unit
