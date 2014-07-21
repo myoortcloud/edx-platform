@@ -32,8 +32,8 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         signup_page = SignupPage(self.browser)
         signup_page.visit()
 
-        # Save the har file
-        self.save_har()
+        # Save the har file, passing it a name for the file
+        self.save_har('LoginPage_and_SignupPage')
 
     def test_signup_flow_no_cache(self):
         """
@@ -53,7 +53,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         # Note that saving will 'unset' the har, so that if you were to declare another new
         # page after this point, it would start recording a new har. This means that you can
         # also explitily capture many hars in a single test. See the next example.
-        self.save_har()
+        self.save_har('LoginPage')
 
         # Declare that you are going to a new page, then navigate to the next page.
         # This will start recording a new har here.
@@ -61,4 +61,4 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         signup_page = SignupPage(self.browser)
         signup_page.visit()
         # Save the second har file.
-        self.save_har()
+        self.save_har('SignupPage')
