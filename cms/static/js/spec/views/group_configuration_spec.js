@@ -284,24 +284,26 @@ define([
             expect(groupFields).not.toHaveClass('is-focused');
         });
 
-        describe('removes all empty groups on cancel', function () {
-            it('the model has a non-empty groups', function() {
+        describe('removes all newly created groups on cancel', function () {
+            it('if the model has a non-empty groups', function() {
                 var groups = this.model.get('groups');
 
                 this.view.render();
                 groups.add([{ name: 'non-empty' }]);
                 expect(groups.length).toEqual(3);
                 this.view.$('.action-cancel').click();
+                // Restore to default state (2 groups by default).
                 expect(groups.length).toEqual(2);
             });
 
-            it('except two if the model has no non-empty groups', function() {
+            it('if the model has no non-empty groups', function() {
                 var groups = this.model.get('groups');
 
                 this.view.render();
                 groups.add([{}, {}, {}]);
                 expect(groups.length).toEqual(5);
                 this.view.$('.action-cancel').click();
+                // Restore to default state (2 groups by default).
                 expect(groups.length).toEqual(2);
             });
         });

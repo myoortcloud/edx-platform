@@ -585,7 +585,7 @@ class GroupConfigurationsTest(ContainerBase, SplitTestMixin):
         config.groups[1].name = ''
         try_to_save_and_verify_error_message("All groups must have a name")
         config.groups[1].remove()
-        try_to_save_and_verify_error_message("Please add at least two groups")
+        try_to_save_and_verify_error_message("There must be at least two groups")
         config.add_group()
 
         # Save the configuration

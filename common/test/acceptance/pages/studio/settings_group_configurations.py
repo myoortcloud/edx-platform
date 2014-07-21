@@ -177,7 +177,7 @@ class Group(object):
     @property
     def name(self):
         """
-        Return group name.
+        Return the name of the group .
         """
         css = '.group-name'
         return self.find_css(css).first.text[0]
@@ -185,7 +185,7 @@ class Group(object):
     @name.setter
     def name(self, value):
         """
-        Set group name.
+        Set the name for the group.
         """
         css = '.group-name'
         self.find_css(css).first.fill(value)

@@ -62,12 +62,12 @@ function(BaseView, _, $, gettext, GroupEdit) {
         },
 
         createGroup: function(event) {
+            if(event && event.preventDefault) { event.preventDefault(); }
             var collection = this.model.get('groups');
             collection.add([{
                 name: collection.getNextDefaultGroupName(),
                 order: collection.nextOrder()
             }]);
-            if(event && event.preventDefault) { event.preventDefault(); }
         },
 
         setName: function(event) {

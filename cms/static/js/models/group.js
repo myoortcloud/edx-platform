@@ -3,7 +3,6 @@ define([
     'backbone.associations'
 ], function(Backbone, _, str, gettext) {
     'use strict';
-    _.str = str;
     var Group = Backbone.AssociatedModel.extend({
         defaults: function() {
             return {
@@ -26,9 +25,9 @@ define([
         },
 
         validate: function(attrs) {
-            if (!_.str.trim(attrs.name)) {
+            if (!str.trim(attrs.name)) {
                 return {
-                    message: gettext(''),
+                    message: gettext('Group name is required'),
                     attributes: { name: true }
                 };
             }

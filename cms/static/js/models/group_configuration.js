@@ -12,7 +12,14 @@ function(Backbone, _, str, gettext, GroupModel, GroupCollection) {
                 description: '',
                 version: null,
                 groups: new GroupCollection([
-                    { name: 'Group A', order: 0 }, { name: 'Group B', order: 1 }
+                    {
+                        name: gettext('Group A'),
+                        order: 0
+                    },
+                    {
+                        name: gettext('Group B'),
+                        order: 1
+                    }
                 ]),
                 showGroups: false,
                 editing: false
@@ -79,7 +86,7 @@ function(Backbone, _, str, gettext, GroupModel, GroupCollection) {
 
             if (attrs.groups.length < 2) {
                 return {
-                    message: gettext('Please add at least two groups'),
+                    message: gettext('There must be at least two groups'),
                     attributes: { groups: true }
                 };
             } else {

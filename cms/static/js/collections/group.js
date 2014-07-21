@@ -3,7 +3,6 @@ define([
 ],
 function (_, str, Backbone, gettext, GroupModel) {
     'use strict';
-    _.str = str;
     var GroupCollection = Backbone.Collection.extend({
         model: GroupModel,
         comparator: 'order',
@@ -54,7 +53,7 @@ function (_, str, Backbone, gettext, GroupModel) {
          * Group A, Group B, Group AA, Group ZZZ etc.
          */
         getDefaultGroupName: function (index) {
-            return _.str.sprintf(gettext('Group %s'), this.getGroupId(index));
+            return str.sprintf(gettext('Group %s'), this.getGroupId(index));
         },
 
         /*
@@ -71,36 +70,46 @@ function (_, str, Backbone, gettext, GroupModel) {
                 Group B, ..., Group AA, etc.
             */
             var dict = gettext('ABCDEFGHIJKLMNOPQRSTUVWXYZ').split(''),
-                len = dict.length;
+                len = dict.length,
+                divide;
 
-            var divide = function(numerator, denominator) {
+            divide = function(numerator, denominator) {
                 if (!_.isNumber(numerator) || !denominator) {
                     return null;
                 }
 
                 return {
-                    quotient: numerator/denominator,
+                    quotient: numerator / denominator,
                     remainder: numerator % denominator
                 };
             };
 
             return function getId(number) {
-                var id = '',
+                var accumulatedValues = '',
                     result = divide(number, len),
                     index;
 
                 if (result) {
-                    index = Math.floor(result.quotient - 1);
+                    // subtract 1 to start the count with 0.
+                    index = Math.floor(result.quotient) - 1;
 
+                    // Proceed by dividing the non-remainder part of the
+                    // dividend by the desired base until the result is less
+                    // than one.
                     if (index < len) {
-                      if (index > -1) {
-                        id += dict[index];
-                      }
+                        // if index < 0, we do not need an additional power.
+                        if (index > -1) {
+                            // Get value for the next power.
+                            accumulatedValues += dict[index];
+                        }
                     } else {
-                        id += getId(index);
+                        // If we need more than 1 additional power.
+                        // Get value for the next powers.
+                        accumulatedValues += getId(index);
                     }
 
-                    return id + dict[result.remainder];
+                    // Accumulated values + the current reminder
+                    return accumulatedValues + dict[result.remainder];
                 }
 
                 return String(number);
