@@ -9,6 +9,7 @@ following:
 
 * `What is a Unit?`_
 * `Viewing Units in the Outline`_
+* `Viewing the Unit Page`_
 * `Viewing Units as a Student`_
 * `Unit States`_
 
@@ -32,11 +33,13 @@ Components>`.
 What is a Unit?
 ****************************
 
-A unit is a part of a :ref:`subsection<Developing Course Subsections>` that students view as a single page. 
+A unit is a part of a :ref:`subsection<Developing Course Subsections>` that
+students view as a single page.
 
 A subsection contains one or more units.
 
-A unit contains one or more :ref:`components<Developing Course Components>`, such as HTML content, problems, discussions, and videos.
+A unit contains one or more :ref:`components<Developing Course Components>`,
+such as HTML content, problems, discussions, and videos.
 
 
 ****************************
@@ -44,6 +47,17 @@ Viewing Units in the Outline
 ****************************
 
 TBP
+
+****************************
+Viewing the Unit Page
+****************************
+
+When you click on a unit in the outline, the **Unit** page opens.
+
+The following example shows a unit page with two components, with circles and text to show different areas and controls in the page.
+
+.. image:: ../Images/unit-page.png
+ :alt: The Unit page
 
 ****************************
 Viewing Units as a Student 
