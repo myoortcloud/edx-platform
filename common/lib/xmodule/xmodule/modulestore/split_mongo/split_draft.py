@@ -26,6 +26,49 @@ class DraftVersioningModuleStore(ModuleStoreDraftAndPublished, SplitMongoModuleS
         """
         return super(DraftVersioningModuleStore, self).get_courses(ModuleStoreEnum.BranchName.draft)
 
+    def _auto_publish(self, item, user_id):
+        """
+        Returns an item that is published if the item.category is DIRECT_ONLY
+        """
+        if item.location.category in DIRECT_ONLY_CATEGORIES:
+            try:
+                return self.publish(item.location, user_id)
+            except ItemNotFoundError:
+                # Course root not published
+                return item
+        return item
+
+    def update_item(self, descriptor, user_id, allow_not_found=False, force=False):
+        item = super(DraftVersioningModuleStore, self).update_item(
+            descriptor,
+            user_id,
+            allow_not_found=allow_not_found,
+            force=force
+        )
+        return self._auto_publish(item, user_id)
+
+    def create_item(
+        self, user_id, course_key, block_type, block_id=None,
+        definition_locator=None, fields=None,
+        force=False, continue_version=False, **kwargs
+    ):
+        item = super(DraftVersioningModuleStore, self).create_item(
+            user_id, course_key, block_type, block_id=block_id,
+            definition_locator=definition_locator, fields=fields,
+            force=force, continue_version=continue_version, **kwargs
+        )
+        return self._auto_publish(item, user_id)
+
+    def create_child(
+            self, user_id, parent_usage_key, block_type, block_id=None,
+            fields=None, continue_version=False, **kwargs
+    ):
+        item = super(DraftVersioningModuleStore, self).create_child(
+            user_id, parent_usage_key, block_type, block_id=block_id,
+            fields=fields, continue_version=False, **kwargs
+        )
+        return self._auto_publish(item, user_id)
+
     def delete_item(self, location, user_id, revision=None, **kwargs):
         """
         Delete the given item from persistence. kwargs allow modulestore specific parameters.
@@ -133,6 +176,7 @@ class DraftVersioningModuleStore(ModuleStoreDraftAndPublished, SplitMongoModuleS
             location.course_key.for_branch(ModuleStoreEnum.BranchName.published),
             [location],
         )
+        return self.get_item(location.for_branch(ModuleStoreEnum.BranchName.published))
 
     def unpublish(self, location, user_id):
         """
