@@ -1,21 +1,24 @@
 <%
 var publishClasses = "";
-var published = xblockInfo.get('published');
+var category = xblockInfo.get('category');
+var published = xblockInfo.get('published_on');
+if (category !== 'vertical') {
+    published = true;
+}
 var scheduled = xblockInfo.get('release_date');
 var releasedToStudents = xblockInfo.get('released_to_students');
 var hasChanges = xblockInfo.get('has_changes');
 var visibleToStaffOnly = xblockInfo.get('visible_to_staff_only');
-if (xblockInfo.get('published_on')) {
-    if (xblockInfo.get('has_changes')) {
+if (visibleToStaffOnly) {
+    publishClasses = publishClasses + " is-staff-only";
+    hasChanges = false;
+} else if (published) {
+    if (hasChanges) {
         publishClasses = publishClasses + " has-changes";
     }
     publishClasses = publishClasses + " is-published";
-}
-if (releasedToStudents) {
+} else if (releasedToStudents) {
     publishClasses = publishClasses + " is-released";
-}
-if (visibleToStaffOnly) {
-    publishClasses = publishClasses + " is-staff-only";
 }
 
 
@@ -65,7 +68,7 @@ if (statusType === 'warning') {
             <h3 class="<%= xblockType %>-header-details">
         <% } %>
 
-                <% if (xblockInfo.get('category') === 'vertical') { %>
+                <% if (category === 'vertical') { %>
                     <span class="unit-title item-title">
                         <a href="<%= xblockInfo.get('studio_url') %>"><%= xblockInfo.get('display_name') %></a>
                     </span>
@@ -88,7 +91,7 @@ if (statusType === 'warning') {
         </div>
     </div>
     <div class="<%= xblockType %>-status">
-        <% if (xblockInfo.get('category') !== 'vertical' && xblockInfo.get('release_date')) { %>
+        <% if (category !== 'vertical' && xblockInfo.get('release_date')) { %>
             <div class="status-release">
                 <p>
                     <span class="sr status-release-label">Release Status:</span>
@@ -119,7 +122,7 @@ if (statusType === 'warning') {
             <p><%= gettext("You haven't added any content to this course yet.") %>
                 <a href="#" class="add-button" data-category="<%= childCategory %>"
                    data-parent="<%= xblockInfo.get('id') %>" data-default-name="<%= defaultNewChildName %>">
-                    <i class="icon-plus"></i><%= addChildLabel %>
+                    <i class="icon icon-plus"></i><%= addChildLabel %>
                 </a>
             </p>
         </div>
@@ -133,7 +136,7 @@ if (statusType === 'warning') {
             <div class="add-<%= childType %> add-item">
                 <a href="#" class="action-add add-button" data-category="<%= childCategory %>"
                    data-parent="<%= xblockInfo.get('id') %>" data-default-name="<%= defaultNewChildName %>">
-                    <i class="icon-plus"></i><%= addChildLabel %>
+                    <i class="icon icon-plus"></i><%= addChildLabel %>
                 </a>
             </div>
         <% } %>
