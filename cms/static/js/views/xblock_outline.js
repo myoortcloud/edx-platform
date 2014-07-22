@@ -167,7 +167,7 @@ define(["jquery", "underscore", "gettext", "js/views/baseview", "js/views/utils/
                     xblockType = 'section';
                 } else if (category === 'sequential') {
                     xblockType = 'subsection';
-                } else if (category === 'vertical' && parentInfo && parentInfo.get('category') === 'sequential') {
+                } else if (category === 'vertical' && (!parentInfo || parentInfo.get('category') === 'sequential')) {
                     xblockType = 'unit';
                 }
                 return xblockType;

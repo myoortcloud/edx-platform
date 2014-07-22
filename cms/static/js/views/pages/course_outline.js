@@ -15,7 +15,7 @@ define(["jquery", "underscore", "gettext", "js/views/pages/base_page", "js/views
                 var self = this;
                 this.initialState = this.options.initialState;
                 BasePage.prototype.initialize.call(this);
-                this.$('.add-button').click(function(event) {
+                this.$('.new-button').click(function(event) {
                     self.outlineView.handleAddEvent(event);
                 });
                 this.model.on('change', this.setCollapseExpandVisibility, this);

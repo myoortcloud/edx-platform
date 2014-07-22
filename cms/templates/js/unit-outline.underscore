@@ -18,7 +18,7 @@ if (visibleToStaffOnly) {
 }
 
 
-var listType = 'list-unknown';
+var listType = 'list-for-' + xblockType;
 if (xblockType === 'course') {
     listType = 'list-subsections';
 } else if (xblockType === 'section') {
@@ -39,7 +39,7 @@ if (xblockType === 'course') {
     </div>
 <% } %>
 
-        <div class="<%= xblockType %>-content">
+        <div class="<%= xblockType %>-content outline-content">
             <ol class="<%= listType %> is-sortable">
             </ol>
         </div>
