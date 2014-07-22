@@ -774,10 +774,12 @@ class TestMixedModuleStore(unittest.TestCase):
 
         # verify Draft problem
         with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
+            self.assertTrue(self.store.has_item(problem_location))
             assertProblemNameEquals(problem_original_name)
 
         # verify Published problem doesn't exist
         with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            self.assertFalse(self.store.has_item(problem_location))
             with self.assertRaises(ItemNotFoundError):
                 self.store.get_item(problem_location)
 
@@ -786,6 +788,7 @@ class TestMixedModuleStore(unittest.TestCase):
 
         # verify Published problem
         with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            self.assertTrue(self.store.has_item(problem_location))
             assertProblemNameEquals(problem_original_name)
 
         # verify Draft-preferred
