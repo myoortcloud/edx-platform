@@ -245,6 +245,14 @@
     .section-status {
       margin: 0 0 0 $outline-indent-width;
     }
+
+    // STATE: is-expanded
+    border-left: 1px solid $color-draft;
+
+    // STATE: is-collapsed
+    &.is-collapsed {
+      border-left: ($baseline/4) solid $color-draft;
+    }
   }
 
   // outline: subsections

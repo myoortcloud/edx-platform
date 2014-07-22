@@ -269,10 +269,8 @@ $outline-indent-width: $baseline;
 
 // UI: containing elements on a course outline (currently sections/subsections)
 %outline-container {
-  // STATE: is-collapsed
-  &.is-collapsed {
-    border-left: ($baseline/4) solid $color-draft;
-  }
+  @include transition(border-left-width $tmg-f2 ease-in-out 0s, border-left-color $tmg-f2 ease-in-out 0s);
+  border-left: ($baseline/4) solid $color-draft;
 
   // CASE: is published but not released
   &.is-published {
@@ -457,6 +455,7 @@ $outline-indent-width: $baseline;
   @extend %outline-container;
   margin-bottom: ($baseline/2);
   border: 1px solid $gray-l4;
+  border-left: ($baseline/4) solid $color-draft;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: ($baseline*0.75);
@@ -468,7 +467,7 @@ $outline-indent-width: $baseline;
 
   // STATE: is-collapsed
   &.is-collapsed {
-    border-left: ($baseline/4) solid $color-draft;
+
   }
 
   // header - title
