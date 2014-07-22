@@ -305,7 +305,7 @@ class DraftModuleStore(MongoModuleStore):
             super(DraftModuleStore, self).create_xmodule(location, definition_data, metadata, runtime, fields)
         )
 
-    def get_items(self, course_key, settings=None, content=None, revision=None, **kwargs):
+    def get_items(self, course_key, revision=None, **kwargs):
         """
         Performance Note: This is generally a costly operation, but useful for wildcard searches.
 

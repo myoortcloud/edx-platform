@@ -752,21 +752,36 @@ class TestMixedModuleStore(unittest.TestCase):
         problem_new_name = 'New Problem Name'
         course_key = problem_location.course_key
 
+        def assertNumProblems(display_name, expected_number):
+            """
+            Asserts the number of problems with the given display name is the given expected number.
+            """
+            self.assertEquals(
+                len(self.store.get_items(course_key, settings={'display_name': display_name})),
+                expected_number
+            )
+
         def assertProblemNameEquals(expected_display_name):
+            """
+            Asserts the display_name of the xblock at problem_location matches the given expected value.
+            """
+            # check the display_name of the problem
             problem = self.store.get_item(problem_location)
-            self.assertIsNotNone(problem)
             self.assertEquals(problem.display_name, expected_display_name)
+
+            # there should be only 1 problem with the expected_display_name
+            assertNumProblems(expected_display_name, 1)
 
         # verify Draft problem
         with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
             assertProblemNameEquals(problem_original_name)
 
         # verify Published problem doesn't exist
-        with self.assertRaises(ItemNotFoundError):
-            with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+        with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
+            with self.assertRaises(ItemNotFoundError):
                 self.store.get_item(problem_location)
 
-        # publish the problem
+        # PUBLISH the problem
         self.store.publish(problem_location, self.user_id)
 
         # verify Published problem
@@ -777,7 +792,7 @@ class TestMixedModuleStore(unittest.TestCase):
         with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course_key):
             assertProblemNameEquals(problem_original_name)
 
-        # edit name
+        # EDIT name
         problem = self.store.get_item(problem_location)
         problem.display_name = problem_new_name
         self.store.update_item(problem, self.user_id)
@@ -789,13 +804,17 @@ class TestMixedModuleStore(unittest.TestCase):
         # verify Published problem still has old name
         with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
             assertProblemNameEquals(problem_original_name)
+            # there should be no published problems with the new name
+            assertNumProblems(problem_new_name, 0)
 
-        # publish the problem
+        # PUBLISH the problem
         self.store.publish(problem_location, self.user_id)
 
         # verify Published problem has new name
         with self.store.branch_setting(ModuleStoreEnum.Branch.published_only, course_key):
             assertProblemNameEquals(problem_new_name)
+            # there should be no published problems with the old name
+            assertNumProblems(problem_original_name, 0)
 
 
 #=============================================================================================================

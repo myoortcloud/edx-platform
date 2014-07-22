@@ -142,7 +142,7 @@ class MixedModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
         store = self._get_modulestore_for_courseid(usage_key.course_key)
         return store.get_item(usage_key, depth, **kwargs)
 
-    def get_items(self, course_key, settings=None, content=None, **kwargs):
+    def get_items(self, course_key, **kwargs):
         """
         Returns:
             list of XModuleDescriptor instances for the matching items within the course with
@@ -170,7 +170,7 @@ class MixedModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
             raise Exception("Must pass in a course_key when calling get_items()")
 
         store = self._get_modulestore_for_courseid(course_key)
-        return store.get_items(course_key, settings=settings, content=content, **kwargs)
+        return store.get_items(course_key, **kwargs)
 
     def get_courses(self):
         '''
