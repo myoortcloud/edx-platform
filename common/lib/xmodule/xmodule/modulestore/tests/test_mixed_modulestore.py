@@ -739,7 +739,7 @@ class TestMixedModuleStore(unittest.TestCase):
         self.assertTrue(self.store.has_changes(item.location))
         self.assertEquals(self.store.compute_publish_state(item), PublishState.draft)
 
-    @ddt.data('draft')
+    @ddt.data('draft', 'split')
     def test_branch_setting(self, default_ms):
         """
         Test the branch_setting context manager
@@ -747,10 +747,22 @@ class TestMixedModuleStore(unittest.TestCase):
         self.initdb(default_ms)
         self._create_block_hierarchy()
 
-        problem_location = self.problem_x1a_1
-        problem_original_name = 'Problem_x1a_1'
-        problem_new_name = 'New Problem Name'
+        # TODO - Remove these lines once LMS-2869 is implemented
+        course_location = self.course_locations[self.MONGO_COURSEID]
+        self.store.publish(course_location, self.user_id)
+        problem_original_name = 'Problem_Original'
+        problem = self.store.create_child(
+            self.user_id, self.writable_chapter_location, 'problem', 'prob_block',
+            fields={'display_name': problem_original_name},
+        )
+        problem_location = problem.location.version_agnostic().for_branch(None)
+
+        # TODO - Uncomment out these lines once LMS-2869 is implemented
+        # problem_location = self.problem_x1a_1
+        # problem_original_name = 'Problem_x1a_1'
+
         course_key = problem_location.course_key
+        problem_new_name = 'New Problem Name'
 
         def assertNumProblems(display_name, expected_number):
             """
