@@ -11,6 +11,14 @@ Change Log
 
    * - Date
      - Change
+   * - 08/12/14
+     - Added the :ref:`ora2` section to the :ref:`Tracking Logs` chapter.
+   * - 08/01/14
+     - Added the :ref:`Package` chapter with information to help data czars
+       locate and download data package files.
+   * - 07/10/14
+     - Added the :ref:`Getting_Credentials_Data_Czar` chapter with information
+       to help new data czars set up credentials for secure data transfers.
    * - 06/27/14
      - Made a correction to the ``edx.forum.searched`` event name in the
        :ref:`Tracking Logs` chapter.
@@ -33,7 +41,9 @@ Change Log
    * - 05/06/14
      - Added enrollment event types to the :ref:`Tracking Logs` chapter. 
    * - 05/05/14
-     - Removed information on the Poll module. `Polls <http://edx.readthedocs.org/projects/ca/en/latest/exercises_tools/poll.html>`_ are now covered in the *Building and Running an edX Course* guide.
+     - Removed information on the Poll module. `Polls <http://edx.readthedocs.o
+       rg/projects/ca/en/latest/exercises_tools/poll.html>`_ are now covered in
+       the *Building and Running an edX Course* guide.
    * -
      - Removed information on the Word Cloud tool. The `Word Cloud tool <http://edx.readthedocs.org/projects/ca/en/latest/exercises_tools/word_cloud.html>`_ is now covered in the *Building and Running an edX Course* guide.
    * - 

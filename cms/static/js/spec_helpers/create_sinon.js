@@ -1,5 +1,5 @@
 define(["sinon", "underscore"], function(sinon, _) {
-    var fakeServer, fakeRequests, respondWithJson, respondWithError;
+    var fakeServer, fakeRequests, expectJsonRequest, respondWithJson, respondWithError, respondToDelete;
 
     /* These utility methods are used by Jasmine tests to create a mock server or
      * get reference to mock requests. In either case, the cleanup (restore) is done with
@@ -10,7 +10,7 @@ define(["sinon", "underscore"], function(sinon, _) {
      * errors were that one test suite was incorrectly being linked as the parent of an unrelated
      * test suite (causing both suites' afterEach methods to be called). No solution for the root
      * cause has been found, but initializing sinon and cleaning it up on a method-by-method
-     * basis seems to work. For more details, see STUD-1040.
+     * basis seems to work. For more details, see STUD-1264.
      */
 
     /**
@@ -45,6 +45,17 @@ define(["sinon", "underscore"], function(sinon, _) {
         return requests;
     };
 
+    expectJsonRequest = function(requests, method, url, jsonRequest, requestIndex) {
+        var request;
+        if (_.isUndefined(requestIndex)) {
+            requestIndex = requests.length - 1;
+        }
+        request = requests[requestIndex];
+        expect(request.url).toEqual(url);
+        expect(request.method).toEqual(method);
+        expect(JSON.parse(request.requestBody)).toEqual(jsonRequest);
+    };
+
     respondWithJson = function(requests, jsonResponse, requestIndex) {
         if (_.isUndefined(requestIndex)) {
             requestIndex = requests.length - 1;
@@ -63,10 +74,20 @@ define(["sinon", "underscore"], function(sinon, _) {
             JSON.stringify({ }));
     };
 
+    respondToDelete = function(requests, requestIndex) {
+        if (_.isUndefined(requestIndex)) {
+            requestIndex = requests.length - 1;
+        }
+        requests[requestIndex].respond(204,
+            { "Content-Type": "application/json" });
+    };
+
     return {
         "server": fakeServer,
         "requests": fakeRequests,
+        "expectJsonRequest": expectJsonRequest,
         "respondWithJson": respondWithJson,
-        "respondWithError": respondWithError
+        "respondWithError": respondWithError,
+        "respondToDelete": respondToDelete
     };
 });

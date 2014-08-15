@@ -13,6 +13,7 @@ from fs.osfs import OSFS
 from importlib import import_module
 from lxml import etree
 from path import path
+from contextlib import contextmanager
 
 from xmodule.error_module import ErrorDescriptor
 from xmodule.errortracker import make_error_tracker, exc_info_to_str
@@ -23,6 +24,7 @@ from xmodule.modulestore import ModuleStoreEnum, ModuleStoreReadBase
 from xmodule.tabs import CourseTabList
 from opaque_keys.edx.keys import UsageKey
 from opaque_keys.edx.locations import SlashSeparatedCourseKey, Location
+from opaque_keys.edx.locator import CourseLocator
 
 from xblock.field_data import DictFieldData
 from xblock.runtime import DictKeyValueStore, IdGenerator
@@ -402,15 +404,11 @@ class XMLModuleStore(ModuleStoreReadBase):
             self.default_class = class_
 
         self.parent_trackers = defaultdict(ParentTracker)
-        self.reference_type = Location
 
         # All field data will be stored in an inheriting field data.
         self.field_data = inheriting_field_data(kvs=DictKeyValueStore())
 
         self.i18n_service = i18n_service
-
-        # The XML Module Store is a read-only store and only handles published content
-        self.branch_setting_func = lambda: ModuleStoreEnum.RevisionOption.published_only
 
         # If we are specifically asked for missing courses, that should
         # be an error.  If we are asked for "all" courses, find the ones
@@ -702,7 +700,7 @@ class XMLModuleStore(ModuleStoreReadBase):
         """
         return usage_key in self.modules[usage_key.course_key]
 
-    def get_item(self, usage_key, depth=0):
+    def get_item(self, usage_key, depth=0, **kwargs):
         """
         Returns an XBlock instance for the item for this UsageKey.
 
@@ -719,7 +717,7 @@ class XMLModuleStore(ModuleStoreReadBase):
         except KeyError:
             raise ItemNotFoundError(usage_key)
 
-    def get_items(self, course_id, settings=None, content=None, revision=None, **kwargs):
+    def get_items(self, course_id, settings=None, content=None, revision=None, qualifiers=None, **kwargs):
         """
         Returns:
             list of XModuleDescriptor instances for the matching items within the course with
@@ -731,10 +729,10 @@ class XMLModuleStore(ModuleStoreReadBase):
         Args:
             course_id (CourseKey): the course identifier
             settings (dict): fields to look for which have settings scope. Follows same syntax
-                and rules as kwargs below
+                and rules as qualifiers below
             content (dict): fields to look for which have content scope. Follows same syntax and
-                rules as kwargs below.
-            kwargs (key=value): what to look for within the course.
+                rules as qualifiers below.
+            qualifiers (dict): what to look for within the course.
                 Common qualifiers are ``category`` or any field name. if the target field is a list,
                 then it searches for the given value in the list not list equivalence.
                 Substring matching pass a regex object.
@@ -749,8 +747,9 @@ class XMLModuleStore(ModuleStoreReadBase):
 
         items = []
 
-        category = kwargs.pop('category', None)
-        name = kwargs.pop('name', None)
+        qualifiers = qualifiers.copy() if qualifiers else {}  # copy the qualifiers (destructively manipulated here)
+        category = qualifiers.pop('category', None)
+        name = qualifiers.pop('name', None)
 
         def _block_matches_all(mod_loc, module):
             if category and mod_loc.category != category:
@@ -759,7 +758,7 @@ class XMLModuleStore(ModuleStoreReadBase):
                 return False
             return all(
                 self._block_matches(module, fields or {})
-                for fields in [settings, content, kwargs]
+                for fields in [settings, content, qualifiers]
             )
 
         for mod_loc, module in self.modules[course_id].iteritems():
@@ -768,7 +767,16 @@ class XMLModuleStore(ModuleStoreReadBase):
 
         return items
 
-    def get_courses(self, depth=0):
+    def make_course_key(self, org, course, run):
+        """
+        Return a valid :class:`~opaque_keys.edx.keys.CourseKey` for this modulestore
+        that matches the supplied `org`, `course`, and `run`.
+
+        This key may represent a course that doesn't exist in this modulestore.
+        """
+        return CourseLocator(org, course, run, deprecated=True)
+
+    def get_courses(self, depth=0, **kwargs):
         """
         Returns a list of course descriptors.  If there were errors on loading,
         some of these may be ErrorDescriptors instead.
@@ -782,7 +790,7 @@ class XMLModuleStore(ModuleStoreReadBase):
         """
         return dict((k, self.errored_courses[k].errors) for k in self.errored_courses)
 
-    def get_orphans(self, course_key):
+    def get_orphans(self, course_key, **kwargs):
         """
         Get all of the xblocks in the given course which have no parents and are not of types which are
         usually orphaned. NOTE: may include xblocks which still have references via xblocks which don't
@@ -808,7 +816,7 @@ class XMLModuleStore(ModuleStoreReadBase):
         """
         return ModuleStoreEnum.Type.xml
 
-    def get_courses_for_wiki(self, wiki_slug):
+    def get_courses_for_wiki(self, wiki_slug, **kwargs):
         """
         Return the list of courses which use this wiki_slug
         :param wiki_slug: the course wiki root slug
@@ -826,3 +834,11 @@ class XMLModuleStore(ModuleStoreReadBase):
         """
         return {ModuleStoreEnum.Type.xml: True}
 
+    @contextmanager
+    def branch_setting(self, branch_setting, course_id=None):  # pylint: disable=unused-argument
+        """
+        A context manager for temporarily setting the branch value for the store to the given branch_setting.
+        """
+        if branch_setting != ModuleStoreEnum.Branch.published_only:
+            raise ValueError(u"Cannot set branch setting to {} on a ReadOnly store".format(branch_setting))
+        yield

@@ -63,6 +63,12 @@ class VersionConflictError(Exception):
         self.requestedLocation = requestedLocation
         self.currentHeadVersionGuid = currentHeadVersionGuid
 
+    def __str__(self, *args, **kwargs):
+        """
+        Print requested and current head info
+        """
+        return u'Requested {} but {} is current head'.format(self.requestedLocation, self.currentHeadVersionGuid)
+
 
 class DuplicateCourseError(Exception):
     """
@@ -85,3 +91,6 @@ class InvalidBranchSetting(Exception):
         super(InvalidBranchSetting, self).__init__()
         self.expected_setting = expected_setting
         self.actual_setting = actual_setting
+
+    def __unicode__(self, *args, **kwargs):
+        return u"Invalid branch: expected {} but got {}".format(self.expected_setting, self.actual_setting)

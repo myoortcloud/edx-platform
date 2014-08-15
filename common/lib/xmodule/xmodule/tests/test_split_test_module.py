@@ -160,7 +160,8 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
     Unit tests for how split test interacts with Studio.
     """
 
-    def test_render_author_view(self):
+    @patch('xmodule.split_test_module.SplitTestDescriptor.group_configuration_url', return_value='http://example.com')
+    def test_render_author_view(self, group_configuration_url):
         """
         Test the rendering of the Studio author view.
         """
@@ -170,7 +171,6 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             Context for rendering the studio "author_view".
             """
             return {
-                'container_view': True,
                 'reorderable_items': set(),
                 'root_xblock': root_xblock,
             }
@@ -196,6 +196,22 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
         html = self.module_system.render(self.split_test_module, AUTHOR_VIEW, context).content
         self.assertIn('HTML FOR GROUP 0', html)
         self.assertIn('HTML FOR GROUP 1', html)
+
+    def test_group_configuration_url(self):
+        """
+        Test creation of correct Group Configuration URL.
+        """
+        mocked_course = Mock(advanced_modules=['split_test'])
+        mocked_modulestore = Mock()
+        mocked_modulestore.get_course.return_value = mocked_course
+        self.split_test_module.system.modulestore = mocked_modulestore
+
+        self.split_test_module.user_partitions = [
+            UserPartition(0, 'first_partition', 'First Partition', [Group("0", 'alpha'), Group("1", 'beta')])
+        ]
+
+        expected_url = '/group_configurations/edX/xml_test_course/101#0'
+        self.assertEqual(expected_url, self.split_test_module.group_configuration_url)
 
     def test_editable_settings(self):
         """
@@ -328,6 +344,13 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             self.assertEqual(message.action_class, expected_action_class)
             self.assertEqual(message.action_label, expected_action_label)
 
+        def verify_general_validation_message(general_validation, expected_message, expected_message_type):
+            """
+            Verify that the general validation message has the expected validation message and type.
+            """
+            self.assertEqual(unicode(general_validation['message']), expected_message)
+            self.assertEqual(general_validation['type'], expected_message_type)
+
         # Verify the messages for an unconfigured user partition
         split_test_module.user_partition_id = -1
         messages = split_test_module.validation_messages()
@@ -339,6 +362,11 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             'edit-button',
             u"Select a Group Configuration",
         )
+        verify_general_validation_message(
+            split_test_module.general_validation_message,
+            u"This content experiment has issues that affect content visibility.",
+            ValidationMessageType.warning
+        )
 
         # Verify the messages for a correctly configured split_test
         split_test_module.user_partition_id = 0
@@ -347,6 +375,7 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
         ]
         messages = split_test_module.validation_messages()
         self.assertEqual(len(messages), 0)
+        self.assertIsNone(split_test_module.general_validation_message, None)
 
         # Verify the messages for a split test with too few groups
         split_test_module.user_partitions = [
@@ -362,7 +391,11 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             'add-missing-groups-button',
             u"Add Missing Groups"
         )
-
+        verify_general_validation_message(
+            split_test_module.general_validation_message,
+            u"This content experiment has issues that affect content visibility.",
+            ValidationMessageType.error
+        )
         # Verify the messages for a split test with children that are not associated with any group
         split_test_module.user_partitions = [
             UserPartition(0, 'first_partition', 'First Partition',
@@ -375,7 +408,11 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             u"The experiment has an inactive group. Move content into active groups, then delete the inactive group.",
             ValidationMessageType.warning
         )
-
+        verify_general_validation_message(
+            split_test_module.general_validation_message,
+            u"This content experiment has issues that affect content visibility.",
+            ValidationMessageType.warning
+        )
         # Verify the messages for a split test with both missing and inactive children
         split_test_module.user_partitions = [
             UserPartition(0, 'first_partition', 'First Partition',
@@ -395,6 +432,12 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             u"The experiment has an inactive group. Move content into active groups, then delete the inactive group.",
             ValidationMessageType.warning
         )
+        # With two messages of type error and warning priority given to error.
+        verify_general_validation_message(
+            split_test_module.general_validation_message,
+            u"This content experiment has issues that affect content visibility.",
+            ValidationMessageType.error
+        )
 
         # Verify the messages for a split test referring to a non-existent user partition
         split_test_module.user_partition_id = 2
@@ -404,5 +447,10 @@ class SplitTestModuleStudioTest(SplitTestModuleTest):
             messages[0],
             u"The experiment uses a deleted group configuration. "
             u"Select a valid group configuration or delete this experiment.",
+            ValidationMessageType.error
+        )
+        verify_general_validation_message(
+            split_test_module.general_validation_message,
+            u"This content experiment has issues that affect content visibility.",
             ValidationMessageType.error
         )

@@ -9,11 +9,13 @@ from path import path
 import re
 import random
 
-from xblock.fields import Scope
 from xmodule.course_module import CourseDescriptor
 from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.exceptions import (ItemNotFoundError, VersionConflictError,
-            DuplicateItemError, DuplicateCourseError)
+from xmodule.modulestore.exceptions import (
+    ItemNotFoundError, VersionConflictError,
+    DuplicateItemError, DuplicateCourseError,
+    InsufficientSpecificationError
+)
 from opaque_keys.edx.locator import CourseLocator, BlockUsageLocator, VersionTree, LocalId
 from xmodule.modulestore.inheritance import InheritanceMixin
 from xmodule.x_module import XModuleMixin
@@ -265,7 +267,7 @@ class SplitModuleTest(unittest.TestCase):
                         "category": "problem",
                         "fields": {
                             "display_name": "Problem 3.1",
-                            "graceperiod": "4 hours 0 minutes 0 seconds"
+                            "graceperiod": _time_delta_field.from_json("4 hours 0 minutes 0 seconds"),
                         },
                     },
                     {
@@ -483,7 +485,7 @@ class SplitModuleTest(unittest.TestCase):
                         parent = split_store.get_item(block_usage)
                     block_id = LocalId(spec['id'])
                     child = split_store.create_xblock(
-                        course.runtime, spec['category'], spec['fields'], block_id, parent_xblock=parent
+                        course.runtime, course.id, spec['category'], block_id, spec['fields'], parent_xblock=parent
                     )
                     new_ele_dict[spec['id']] = child
                 course = split_store.persist_xblock_dag(course, revision['user_id'])
@@ -667,7 +669,7 @@ class SplitModuleCourseTests(SplitModuleTest):
 
     def test_get_course_negative(self):
         # Now negative testing
-        with self.assertRaises(ItemNotFoundError):
+        with self.assertRaises(InsufficientSpecificationError):
             modulestore().get_course(CourseLocator(org='edu', course='meh', run='blah'))
         with self.assertRaises(ItemNotFoundError):
             modulestore().get_course(CourseLocator(org='edu', course='nosuchthing', run="run", branch=BRANCH_NAME_DRAFT))
@@ -892,18 +894,18 @@ class SplitModuleItemTests(SplitModuleTest):
         self.assertEqual(len(matches), 6)
         matches = modulestore().get_items(locator)
         self.assertEqual(len(matches), 6)
-        matches = modulestore().get_items(locator, category='chapter')
+        matches = modulestore().get_items(locator, qualifiers={'category': 'chapter'})
         self.assertEqual(len(matches), 3)
-        matches = modulestore().get_items(locator, category='garbage')
+        matches = modulestore().get_items(locator, qualifiers={'category': 'garbage'})
         self.assertEqual(len(matches), 0)
         matches = modulestore().get_items(
             locator,
-            category='chapter',
+            qualifiers={'category': 'chapter'},
             settings={'display_name': re.compile(r'Hera')},
         )
         self.assertEqual(len(matches), 2)
 
-        matches = modulestore().get_items(locator, children='chapter2')
+        matches = modulestore().get_items(locator, qualifiers={'children': 'chapter2'})
         self.assertEqual(len(matches), 1)
         self.assertEqual(matches[0].location.block_id, 'head12345')
 
@@ -1321,7 +1323,7 @@ class TestItemCrud(SplitModuleTest):
         reusable_location = course.id.version_agnostic().for_branch(BRANCH_NAME_DRAFT)
 
         # delete a leaf
-        problems = modulestore().get_items(reusable_location, category='problem')
+        problems = modulestore().get_items(reusable_location, qualifiers={'category': 'problem'})
         locn_to_del = problems[0].location
         new_course_loc = modulestore().delete_item(locn_to_del, self.user_id)
         deleted = locn_to_del.version_agnostic()
@@ -1333,7 +1335,7 @@ class TestItemCrud(SplitModuleTest):
         self.assertNotEqual(new_course_loc.version_guid, course.location.version_guid)
 
         # delete a subtree
-        nodes = modulestore().get_items(reusable_location, category='chapter')
+        nodes = modulestore().get_items(reusable_location, qualifiers={'category': 'chapter'})
         new_course_loc = modulestore().delete_item(nodes[0].location, self.user_id)
         # check subtree
 
@@ -1461,19 +1463,11 @@ class TestCourseCreation(SplitModuleTest):
         original_locator = CourseLocator(org='guestx', course='contender', run="run", branch=BRANCH_NAME_DRAFT)
         original = modulestore().get_course(original_locator)
         original_index = modulestore().get_course_index_info(original_locator)
-        fields = {}
-        for field in original.fields.values():
-            value = getattr(original, field.name)
-            if not isinstance(value, datetime.datetime):
-                json_value = field.to_json(value)
-            else:
-                json_value = value
-            if field.scope == Scope.content and field.name != 'location':
-                fields[field.name] = json_value
-            elif field.scope == Scope.settings:
-                fields[field.name] = json_value
+        fields = {
+            'grading_policy': original.grading_policy,
+            'display_name': 'Derivative',
+        }
         fields['grading_policy']['GRADE_CUTOFFS'] = {'A': .9, 'B': .8, 'C': .65}
-        fields['display_name'] = 'Derivative'
         new_draft = modulestore().create_course(
             'counter', 'leech', 'leech_run', 'leech_master', BRANCH_NAME_DRAFT,
             versions_dict={BRANCH_NAME_DRAFT: original_index['versions'][BRANCH_NAME_DRAFT]},
@@ -1684,7 +1678,12 @@ class TestPublish(SplitModuleTest):
             pub_copy = modulestore().get_item(dest_course_loc.make_usage_key("", expected))
             # everything except previous_version & children should be the same
             self.assertEqual(source.category, pub_copy.category)
-            self.assertEqual(source.update_version, pub_copy.update_version)
+            self.assertEqual(
+                source.update_version, pub_copy.source_version,
+                u"Versions don't match for {}: {} != {}".format(
+                    expected, source.update_version, pub_copy.update_version
+                )
+            )
             self.assertEqual(
                 self.user_id, pub_copy.edited_by,
                 "{} edited_by {} not {}".format(pub_copy.location, pub_copy.edited_by, self.user_id)

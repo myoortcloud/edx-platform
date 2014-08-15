@@ -106,6 +106,9 @@ FEATURES = {
 
     # Toggles Group Configuration editing functionality
     'ENABLE_GROUP_CONFIGURATIONS': os.environ.get('FEATURE_GROUP_CONFIGURATIONS'),
+
+    # Modulestore to use for new courses
+    'DEFAULT_STORE_FOR_NEW_COURSE': 'mongo',
 }
 ENABLE_JASMINE = False
 
@@ -126,12 +129,12 @@ sys.path.append(COMMON_ROOT / 'lib')
 
 # For geolocation ip database
 GEOIP_PATH = REPO_ROOT / "common/static/data/geoip/GeoIP.dat"
-
+GEOIPV6_PATH = REPO_ROOT / "common/static/data/geoip/GeoIPv6.dat"
 
 ############################# WEB CONFIGURATION #############################
 # This is where we stick our compiled template files.
-from tempdir import mkdtemp_clean
-MAKO_MODULE_DIR = mkdtemp_clean('mako')
+import tempfile
+MAKO_MODULE_DIR = os.path.join(tempfile.gettempdir(), 'mako_cms')
 MAKO_TEMPLATES = {}
 MAKO_TEMPLATES['main'] = [
     PROJECT_ROOT / 'templates',
@@ -371,6 +374,23 @@ PIPELINE_CSS = {
         ],
         'output_filename': 'css/cms-style-xmodule.css',
     },
+    'style-xmodule-annotations': {
+        'source_filenames': [
+            'css/vendor/ova/annotator.css',
+            'css/vendor/ova/edx-annotator.css',
+            'css/vendor/ova/video-js.min.css',
+            'css/vendor/ova/rangeslider.css',
+            'css/vendor/ova/share-annotator.css',
+            'css/vendor/ova/richText-annotator.css',
+            'css/vendor/ova/tags-annotator.css',
+            'css/vendor/ova/flagging-annotator.css',
+            'css/vendor/ova/diacritic-annotator.css',
+            'css/vendor/ova/grouping-annotator.css',
+            'css/vendor/ova/ova.css',
+            'js/vendor/ova/catch/css/main.css'
+        ],
+        'output_filename': 'css/cms-style-xmodule-annotations.css',
+    },
 }
 
 # test_order: Determines the position of this chunk of javascript on
@@ -547,6 +567,12 @@ INSTALLED_APPS = (
 
     # Monitoring signals
     'monitoring',
+
+    # Course action state
+    'course_action_state',
+
+    # Additional problem types
+    'edx_jsme',    # Molecular Structure
 )
 
 
@@ -642,3 +668,36 @@ ADVANCED_SECURITY_CONFIG = {}
 ### External auth usage -- prefixes for ENROLLMENT_DOMAIN
 SHIBBOLETH_DOMAIN_PREFIX = 'shib:'
 OPENID_DOMAIN_PREFIX = 'openid:'
+
+################ ADVANCED_COMPONENT_TYPES ###############
+
+ADVANCED_COMPONENT_TYPES = [
+    'annotatable',
+    'textannotation',  # module for annotating text (with annotation table)
+    'videoannotation',  # module for annotating video (with annotation table)
+    'imageannotation',  # module for annotating image (with annotation table)
+    'word_cloud',
+    'graphical_slider_tool',
+    'lti',
+    # XBlocks from pmitros repos are prototypes. They should not be used
+    # except for edX Learning Sciences experiments on edge.edx.org without
+    # further work to make them robust, maintainable, finalize data formats,
+    # etc.
+    'concept',  # Concept mapper. See https://github.com/pmitros/ConceptXBlock
+    'done',  # Lets students mark things as done. See https://github.com/pmitros/DoneXBlock
+    'audio',  # Embed an audio file. See https://github.com/pmitros/AudioXBlock
+    'recommender',  # Crowdsourced recommender. Prototype by dli&pmitros. Intended for roll-out in one place in one course.
+    'split_test',
+    'combinedopenended',
+    'peergrading',
+    'notes',
+]
+
+# Specify xblocks that should be treated as advanced problems. Each entry is a tuple
+# specifying the xblock name and an optional YAML template to be used.
+ADVANCED_PROBLEM_TYPES = [
+    {
+        'component': 'openassessment',
+        'boilerplate_name': None,
+    }
+]

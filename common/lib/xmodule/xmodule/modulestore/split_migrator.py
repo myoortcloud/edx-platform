@@ -25,7 +25,9 @@ class SplitMigrator(object):
         self.split_modulestore = split_modulestore
         self.source_modulestore = source_modulestore
 
-    def migrate_mongo_course(self, source_course_key, user_id, new_org=None, new_course=None, new_run=None):
+    def migrate_mongo_course(
+            self, source_course_key, user_id, new_org=None, new_course=None, new_run=None, fields=None, **kwargs
+    ):
         """
         Create a new course in split_mongo representing the published and draft versions of the course from the
         original mongo store. And return the new CourseLocator
@@ -43,7 +45,7 @@ class SplitMigrator(object):
         # locations are in location, children, conditionals, course.tab
 
         # create the course: set fields to explicitly_set for each scope, id_root = new_course_locator, master_branch = 'production'
-        original_course = self.source_modulestore.get_course(source_course_key)
+        original_course = self.source_modulestore.get_course(source_course_key, **kwargs)
 
         if new_org is None:
             new_org = source_course_key.org
@@ -51,22 +53,30 @@ class SplitMigrator(object):
             new_course = source_course_key.course
         if new_run is None:
             new_run = source_course_key.run
+
         new_course_key = CourseLocator(new_org, new_course, new_run, branch=ModuleStoreEnum.BranchName.published)
+        new_fields = self._get_fields_translate_references(original_course, new_course_key, None)
+        if fields:
+            new_fields.update(fields)
         new_course = self.split_modulestore.create_course(
             new_org, new_course, new_run, user_id,
-            fields=self._get_json_fields_translate_references(original_course, new_course_key, None),
+            fields=new_fields,
             master_branch=ModuleStoreEnum.BranchName.published,
+            skip_auto_publish=True,
+            **kwargs
         )
 
         with self.split_modulestore.bulk_write_operations(new_course.id):
-            self._copy_published_modules_to_course(new_course, original_course.location, source_course_key, user_id)
+            self._copy_published_modules_to_course(
+                new_course, original_course.location, source_course_key, user_id, **kwargs
+            )
         # create a new version for the drafts
         with self.split_modulestore.bulk_write_operations(new_course.id):
-            self._add_draft_modules_to_course(new_course.location, source_course_key, user_id)
+            self._add_draft_modules_to_course(new_course.location, source_course_key, user_id, **kwargs)
 
         return new_course.id
 
-    def _copy_published_modules_to_course(self, new_course, old_course_loc, source_course_key, user_id):
+    def _copy_published_modules_to_course(self, new_course, old_course_loc, source_course_key, user_id, **kwargs):
         """
         Copy all of the modules from the 'direct' version of the course to the new split course.
         """
@@ -75,7 +85,7 @@ class SplitMigrator(object):
         # iterate over published course elements. Wildcarding rather than descending b/c some elements are orphaned (e.g.,
         # course about pages, conditionals)
         for module in self.source_modulestore.get_items(
-            source_course_key, revision=ModuleStoreEnum.RevisionOption.published_only
+            source_course_key, revision=ModuleStoreEnum.RevisionOption.published_only, **kwargs
         ):
             # don't copy the course again.
             if module.location != old_course_loc:
@@ -88,10 +98,12 @@ class SplitMigrator(object):
                     course_version_locator,
                     module.location.block_type,
                     block_id=module.location.block_id,
-                    fields=self._get_json_fields_translate_references(
+                    fields=self._get_fields_translate_references(
                         module, course_version_locator, new_course.location.block_id
                     ),
-                    continue_version=True
+                    continue_version=True,
+                    skip_auto_publish=True,
+                    **kwargs
                 )
         # after done w/ published items, add version for DRAFT pointing to the published structure
         index_info = self.split_modulestore.get_course_index_info(course_version_locator)
@@ -103,7 +115,7 @@ class SplitMigrator(object):
         # children which meant some pointers were to non-existent locations in 'direct'
         self.split_modulestore.internal_clean_children(course_version_locator)
 
-    def _add_draft_modules_to_course(self, published_course_usage_key, source_course_key, user_id):
+    def _add_draft_modules_to_course(self, published_course_usage_key, source_course_key, user_id, **kwargs):
         """
         update each draft. Create any which don't exist in published and attach to their parents.
         """
@@ -113,45 +125,48 @@ class SplitMigrator(object):
         # to prevent race conditions of grandchilden being added before their parents and thus having no parent to
         # add to
         awaiting_adoption = {}
-        for module in self.source_modulestore.get_items(source_course_key, revision=ModuleStoreEnum.RevisionOption.draft_only):
+        for module in self.source_modulestore.get_items(
+                source_course_key, revision=ModuleStoreEnum.RevisionOption.draft_only, **kwargs
+        ):
             new_locator = new_draft_course_loc.make_usage_key(module.category, module.location.block_id)
             if self.split_modulestore.has_item(new_locator):
                 # was in 'direct' so draft is a new version
-                split_module = self.split_modulestore.get_item(new_locator)
+                split_module = self.split_modulestore.get_item(new_locator, **kwargs)
                 # need to remove any no-longer-explicitly-set values and add/update any now set values.
                 for name, field in split_module.fields.iteritems():
                     if field.is_set_on(split_module) and not module.fields[name].is_set_on(module):
                         field.delete_from(split_module)
                 for field, value in self._get_fields_translate_references(
-                        module, new_draft_course_loc, published_course_usage_key.block_id
+                        module, new_draft_course_loc, published_course_usage_key.block_id, field_names=False
                 ).iteritems():
                     field.write_to(split_module, value)
 
-                _new_module = self.split_modulestore.update_item(split_module, user_id)
+                _new_module = self.split_modulestore.update_item(split_module, user_id, **kwargs)
             else:
                 # only a draft version (aka, 'private').
                 _new_module = self.split_modulestore.create_item(
                     user_id, new_draft_course_loc,
                     new_locator.block_type,
                     block_id=new_locator.block_id,
-                    fields=self._get_json_fields_translate_references(
+                    fields=self._get_fields_translate_references(
                         module, new_draft_course_loc, published_course_usage_key.block_id
-                    )
+                    ),
+                    **kwargs
                 )
                 awaiting_adoption[module.location] = new_locator
         for draft_location, new_locator in awaiting_adoption.iteritems():
             parent_loc = self.source_modulestore.get_parent_location(
-                draft_location, revision=ModuleStoreEnum.RevisionOption.draft_preferred
+                draft_location, revision=ModuleStoreEnum.RevisionOption.draft_preferred, **kwargs
             )
             if parent_loc is None:
                 log.warn(u'No parent found in source course for %s', draft_location)
                 continue
-            old_parent = self.source_modulestore.get_item(parent_loc)
+            old_parent = self.source_modulestore.get_item(parent_loc, **kwargs)
             split_parent_loc = new_draft_course_loc.make_usage_key(
                 parent_loc.category,
                 parent_loc.block_id if parent_loc.category != 'course' else published_course_usage_key.block_id
             )
-            new_parent = self.split_modulestore.get_item(split_parent_loc)
+            new_parent = self.split_modulestore.get_item(split_parent_loc, **kwargs)
             # this only occurs if the parent was also awaiting adoption: skip this one, go to next
             if any(new_locator == child.version_agnostic() for child in new_parent.children):
                 continue
@@ -169,43 +184,13 @@ class SplitMigrator(object):
             new_parent.children.insert(new_parent_cursor, new_locator)
             new_parent = self.split_modulestore.update_item(new_parent, user_id)
 
-    def _get_json_fields_translate_references(self, xblock, new_course_key, course_block_id):
-        """
-        Return the json repr for explicitly set fields but convert all references to their Locators
-        """
-        def get_translation(location):
-            """
-            Convert the location
-            """
-            return new_course_key.make_usage_key(
-                location.category,
-                location.block_id if location.category != 'course' else course_block_id
-            )
-
-        result = {}
-        for field_name, field in xblock.fields.iteritems():
-            if field.is_set_on(xblock):
-                field_value = getattr(xblock, field_name)
-                if isinstance(field, Reference) and field_value is not None:
-                    result[field_name] = get_translation(field_value)
-                elif isinstance(field, ReferenceList):
-                    result[field_name] = [
-                        get_translation(ele) for ele in field_value
-                    ]
-                elif isinstance(field, ReferenceValueDict):
-                    result[field_name] = {
-                        key: get_translation(subvalue)
-                        for key, subvalue in field_value.iteritems()
-                    }
-                else:
-                    result[field_name] = field.read_json(xblock)
-
-        return result
-
-    def _get_fields_translate_references(self, xblock, new_course_key, course_block_id):
+    def _get_fields_translate_references(self, xblock, new_course_key, course_block_id, field_names=True):
         """
         Return a dictionary of field: value pairs for explicitly set fields
         but convert all references to their BlockUsageLocators
+        Args:
+            field_names: if Truthy, the dictionary keys are the field names. If falsey, the keys are the
+            field objects.
         """
         def get_translation(location):
             """
@@ -219,19 +204,20 @@ class SplitMigrator(object):
         result = {}
         for field_name, field in xblock.fields.iteritems():
             if field.is_set_on(xblock):
-                field_value = getattr(xblock, field_name)
+                field_value = field.read_from(xblock)
+                field_key = field_name if field_names else field
                 if isinstance(field, Reference) and field_value is not None:
-                    result[field] = get_translation(field_value)
+                    result[field_key] = get_translation(field_value)
                 elif isinstance(field, ReferenceList):
-                    result[field] = [
+                    result[field_key] = [
                         get_translation(ele) for ele in field_value
                     ]
                 elif isinstance(field, ReferenceValueDict):
-                    result[field] = {
+                    result[field_key] = {
                         key: get_translation(subvalue)
                         for key, subvalue in field_value.iteritems()
                     }
                 else:
-                    result[field] = field_value
+                    result[field_key] = field_value
 
         return result
