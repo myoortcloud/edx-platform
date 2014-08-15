@@ -9,7 +9,7 @@
 <%
   homepage_overlay_html = microsite.get_value('homepage_overlay_html')
 
-  show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', True)
+  show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', False)
   homepage_promo_video_youtube_id = microsite.get_value('homepage_promo_video_youtube_id', "XNaiOGxWeto")
 
   show_partners = microsite.get_value('show_partners', True)
@@ -27,9 +27,9 @@
             % if self.stanford_theme_enabled():
               <h1>${_("Free courses from <strong>{university_name}</strong>").format(university_name="Stanford")}</h1>
             % else:
-              <h1>${_("The Future of Online Education")}</h1>
+              <h1>${_("Business Information Technology")}</h1>
             % endif
-            <h2>${_("For anyone, anywhere, anytime")}</h2>
+            <h2>${_("Change,Chance ,Challenge")}</h2>
           % endif
         </hgroup>
 
