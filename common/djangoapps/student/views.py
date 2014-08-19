@@ -913,7 +913,7 @@ def login_user(request, error=""):  # pylint: disable-msg=too-many-statements,un
         AUDIT_LOG.warning(u"Login failed - Account not active for user {0}, resending activation".format(username))
 
     reactivation_email_for_user(user)
-    not_activated_msg = _("This account has not been activated. We have sent another activation message. Please check your e-mail for the activation instructions.")
+    not_activated_msg = _("This account has not been activated. Please contact administrator to confirm your activation request.")
     return JsonResponse({
         "success": False,
         "value": not_activated_msg,
