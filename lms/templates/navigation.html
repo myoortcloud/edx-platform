@@ -75,7 +75,7 @@ site_status_msg = get_site_status_msg(course_id)
               <li><a href="${marketing_link('FAQ')}">${_("Help")}</a></li>
             % endif
           </%block>
-          <li><a href="${reverse('logout')}" role="menuitem">${_("Log Out")}</a></li>
+          <li><a href="https://begov.kookmin.ac.kr${reverse('logout')}" role="menuitem">${_("Log Out")}</a></li>
         </ul>
       </li>
     </ol>
@@ -110,7 +110,7 @@ site_status_msg = get_site_status_msg(course_id)
           </li>
           % else:
           <li class="nav-global-04">
-            <a class="cta cta-register" href="/register">${_("Register")}</a>
+            <a class="cta cta-register" href="https://begov.kookmin.ac.kr/register">${_("Register")}</a>
           </li>
           % endif
       % endif
@@ -122,7 +122,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
           <a class="cta cta-login" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Log in")}</a>
           % else:
-          <a class="cta cta-login" href="/login${login_query()}">${_("Log in")}</a>
+          <a class="cta cta-login" href="https://begov.kookmin.ac.kr/login${login_query()}">${_("Log in")}</a>
           % endif
       % endif
     </li>
