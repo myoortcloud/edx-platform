@@ -64,7 +64,7 @@
   if theme_enabled():
     header_extra_file = 'theme-head-extra.html'
     header_file = 'theme-header.html'
-    google_analytics_file = 'theme-google-analytics.html'
+
     footer_file = 'theme-footer.html'
 
     style_overrides_file = None
@@ -72,7 +72,6 @@
   else:
     header_extra_file = None
     header_file = microsite.get_template_path('navigation.html')
-    google_analytics_file = microsite.get_template_path('google_analytics.html')
 
     if getattr(settings, 'SITE_NAME', '').endswith('edx.org'):
       footer_file = microsite.get_template_path('edx_footer.html')
@@ -95,8 +94,6 @@
   <meta name="path_prefix" content="${EDX_ROOT_URL}">
   <meta name="google-site-verification" content="_mipQ4AtZQDNmbtOkwehQDOgCxUUV2fb_C0b6wbiRHY" />
 
-  <%include file="${google_analytics_file}" />
-
 
 % if style_overrides_file:
   <link rel="stylesheet" type="text/css" href="${static.url(style_overrides_file)}" />
@@ -117,7 +114,7 @@
     ${self.body()}
     <%block name="bodyextra"/>
   </div>
-
+<%include file="google-analytics.html" />
   <%include file="${footer_file}" />
 
   <script>window.baseUrl = "${settings.STATIC_URL}";</script>
