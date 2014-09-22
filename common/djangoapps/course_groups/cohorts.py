@@ -4,6 +4,7 @@ forums, and to the cohort admin views.
 """
 
 from django.http import Http404
+
 import logging
 import random
 
@@ -86,14 +87,14 @@ def is_commentable_cohorted(course_key, commentable_id):
 
 def get_cohorted_commentables(course_key):
     """
-    Given a course_key return a list of strings representing cohorted commentables
+    Given a course_key return a set of strings representing cohorted commentables.
     """
 
     course = courses.get_course_by_id(course_key)
 
     if not course.is_cohorted:
         # this is the easy case :)
-        ans = []
+        ans = set()
     else:
         ans = course.cohorted_discussions
 
@@ -159,19 +160,30 @@ def get_cohort(user, course_key):
     return group
 
 
-def get_course_cohorts(course_key):
+def get_course_cohorts(course):
     """
-    Get a list of all the cohorts in the given course.
+    Get a list of all the cohorts in the given course. This will include auto cohorts,
+    regardless of whether or not the auto cohorts include any users.
 
     Arguments:
-        course_key: CourseKey
+        course: the course for which cohorts should be returned
 
     Returns:
         A list of CourseUserGroup objects.  Empty if there are no cohorts. Does
         not check whether the course is cohorted.
     """
+    # TODO: remove auto_cohort check with TNL-160
+    if course.auto_cohort:
+        # Ensure all auto cohorts are created.
+        for group_name in course.auto_cohort_groups:
+            CourseUserGroup.objects.get_or_create(
+                course_id=course.location.course_key,
+                group_type=CourseUserGroup.COHORT,
+                name=group_name
+            )
+
     return list(CourseUserGroup.objects.filter(
-        course_id=course_key,
+        course_id=course.location.course_key,
         group_type=CourseUserGroup.COHORT
     ))
 
@@ -213,8 +225,13 @@ def add_cohort(course_key, name):
                                       name=name).exists():
         raise ValueError("Can't create two cohorts with the same name")
 
+    try:
+        course = courses.get_course_by_id(course_key)
+    except Http404:
+        raise ValueError("Invalid course_key")
+
     return CourseUserGroup.objects.create(
-        course_id=course_key,
+        course_id=course.id,
         group_type=CourseUserGroup.COHORT,
         name=name
     )
@@ -240,7 +257,6 @@ def add_user_to_cohort(cohort, username_or_email):
 
     Raises:
         User.DoesNotExist if can't find user.
-
         ValueError if user already present in this cohort.
     """
     user = get_user_by_username_or_email(username_or_email)
@@ -262,13 +278,6 @@ def add_user_to_cohort(cohort, username_or_email):
 
     cohort.users.add(user)
     return (user, previous_cohort)
-
-
-def get_course_cohort_names(course_key):
-    """
-    Return a list of the cohort names in a course.
-    """
-    return [c.name for c in get_course_cohorts(course_key)]
 
 
 def delete_empty_cohort(course_key, name):

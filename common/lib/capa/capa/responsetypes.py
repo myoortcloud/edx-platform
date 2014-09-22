@@ -305,6 +305,7 @@ class LoncapaResponse(object):
                     code,
                     globals_dict,
                     python_path=self.context['python_path'],
+                    extra_files=self.context['extra_files'],
                     slug=self.id,
                     random_seed=self.context['seed'],
                     unsafely=self.capa_system.can_execute_unsafe_code(),
@@ -1480,6 +1481,7 @@ class CustomResponse(LoncapaResponse):
                             code,
                             globals_dict,
                             python_path=self.context['python_path'],
+                            extra_files=self.context['extra_files'],
                             slug=self.id,
                             random_seed=self.context['seed'],
                             unsafely=self.capa_system.can_execute_unsafe_code(),
@@ -1613,6 +1615,8 @@ class CustomResponse(LoncapaResponse):
                     self.code,
                     self.context,
                     cache=self.capa_system.cache,
+                    python_path=self.context['python_path'],
+                    extra_files=self.context['extra_files'],
                     slug=self.id,
                     random_seed=self.context['seed'],
                     unsafely=self.capa_system.can_execute_unsafe_code(),
@@ -1879,7 +1883,7 @@ class CodeResponse(LoncapaResponse):
 
         # matlab api key can be defined in course settings. if so, add it to the grader payload
         api_key = getattr(self.capa_system, 'matlab_api_key', None)
-        if self.xml.find('matlabinput') and api_key:
+        if api_key and self.xml.find('matlabinput') is not None:
             self.payload['token'] = api_key
             self.payload['endpoint_version'] = "2"
             self.payload['requestor_id'] = self.capa_system.anonymous_student_id
@@ -2496,6 +2500,8 @@ class SchematicResponse(LoncapaResponse):
                 self.code,
                 self.context,
                 cache=self.capa_system.cache,
+                python_path=self.context['python_path'],
+                extra_files=self.context['extra_files'],
                 slug=self.id,
                 random_seed=self.context['seed'],
                 unsafely=self.capa_system.can_execute_unsafe_code(),

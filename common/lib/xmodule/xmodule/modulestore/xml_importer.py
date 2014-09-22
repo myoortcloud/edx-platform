@@ -206,7 +206,7 @@ def import_from_xml(
                 )
                 continue
 
-        with store.bulk_write_operations(dest_course_id):
+        with store.bulk_operations(dest_course_id):
             source_course = xml_module_store.get_course(course_key)
             # STEP 1: find and import course module
             course, course_data_path = _import_course_module(
@@ -431,7 +431,7 @@ def _import_module_and_update_references(
                 fields[field_name] = {
                     key: _convert_reference_fields_to_new_namespace(reference)
                     for key, reference
-                    in reference_dict.items()
+                    in reference_dict.iteritems()
                 }
             elif field_name == 'xml_attributes':
                 value = field.read_from(module)
@@ -607,7 +607,7 @@ def _import_course_draft(
                     _import_module(descriptor)
 
                 except Exception:
-                    logging.exception('There while importing draft descriptor %s', descriptor)
+                    logging.exception('while importing draft descriptor %s', descriptor)
 
 
 def allowed_metadata_by_category(category):

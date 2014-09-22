@@ -28,6 +28,7 @@ urlpatterns = ('',  # nopep8
     url(r'^reject_name_change$', 'student.views.reject_name_change'),
     url(r'^pending_name_changes$', 'student.views.pending_name_changes'),
     url(r'^event$', 'track.views.user_track'),
+    url(r'^segmentio/event$', 'track.views.segmentio.track_segmentio_event'),
     url(r'^t/(?P<template>[^/]*)$', 'static_template_view.views.index'),   # TODO: Is this used anymore? What is STATIC_GRAB?
 
     url(r'^accounts/login$', 'student.views.accounts_login', name="accounts_login"),
@@ -62,8 +63,6 @@ urlpatterns = ('',  # nopep8
     url(r'^user_api/', include('user_api.urls')),
 
     url(r'^lang_pref/', include('lang_pref.urls')),
-
-    url(r'^', include('waffle.urls')),
 
     url(r'^i18n/', include('django.conf.urls.i18n')),
 
@@ -118,15 +117,24 @@ urlpatterns += ((
 # Semi-static views only used by edX, not by themes
 if not settings.FEATURES["USE_CUSTOM_THEME"]:
     urlpatterns += (
-        url(r'^jobs$', 'static_template_view.views.render',
-            {'template': 'jobs.html'}, name="jobs"),
-        url(r'^press$', 'student.views.press', name="press"),
-        url(r'^media-kit$', 'static_template_view.views.render',
-            {'template': 'media-kit.html'}, name="media-kit"),
+        url(r'^blog$', 'static_template_view.views.render',
+            {'template': 'blog.html'}, name="blog"),
+        url(r'^contact$', 'static_template_view.views.render',
+            {'template': 'contact.html'}, name="contact"),
+        url(r'^donate$', 'static_template_view.views.render',
+            {'template': 'donate.html'}, name="donate"),
         url(r'^faq$', 'static_template_view.views.render',
-            {'template': 'faq.html'}, name="faq_edx"),
+            {'template': 'faq.html'}, name="faq"),
         url(r'^help$', 'static_template_view.views.render',
             {'template': 'help.html'}, name="help_edx"),
+        url(r'^jobs$', 'static_template_view.views.render',
+            {'template': 'jobs.html'}, name="jobs"),
+        url(r'^news$', 'static_template_view.views.render',
+            {'template': 'news.html'}, name="news"),
+        url(r'^press$', 'static_template_view.views.render',
+            {'template': 'press.html'}, name="press"),
+        url(r'^media-kit$', 'static_template_view.views.render',
+            {'template': 'media-kit.html'}, name="media-kit"),
 
         # TODO: (bridger) The copyright has been removed until it is updated for edX
         # url(r'^copyright$', 'static_template_view.views.render',
@@ -180,7 +188,7 @@ if settings.WIKI_ENABLED:
         # never be returned by a reverse() so they come after the other url patterns
         url(r'^courses/{}/course_wiki/?$'.format(settings.COURSE_ID_PATTERN),
             'course_wiki.views.course_wiki_redirect', name="course_wiki"),
-        url(r'^courses/(?:[^/]+/[^/]+/[^/]+)/wiki/', include(wiki_pattern())),
+        url(r'^courses/{}/wiki/'.format(settings.COURSE_KEY_REGEX), include(wiki_pattern())),
     )
 
 if settings.COURSEWARE_ENABLED:
@@ -223,6 +231,17 @@ if settings.COURSEWARE_ENABLED:
         url(r'^change_enrollment$',
             'student.views.change_enrollment', name="change_enrollment"),
         url(r'^change_email_settings$', 'student.views.change_email_settings', name="change_email_settings"),
+
+        # Used for an AB-test of auto-registration
+        # TODO (ECOM-16): Based on the AB-test, update the default behavior and change
+        # this URL to point to the original view.  Eventually, this URL
+        # should be removed, but not the AB test completes.
+        url(
+            r'^change_enrollment_autoreg$',
+            'student.views.change_enrollment',
+            {'auto_register': True},
+            name="change_enrollment_autoreg",
+        ),
 
         #About the course
         url(r'^courses/{}/about$'.format(settings.COURSE_ID_PATTERN),
@@ -440,6 +459,12 @@ if settings.FEATURES.get('AUTH_USE_OPENID_PROVIDER'):
         url(r'^openid/provider/xrds/$', 'external_auth.views.provider_xrds', name='openid-provider-xrds')
     )
 
+if settings.FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
+    urlpatterns += (
+        url(r'^oauth2/', include('oauth2_provider.urls', namespace='oauth2')),
+    )
+
+
 if settings.FEATURES.get('ENABLE_LMS_MIGRATION'):
     urlpatterns += (
         url(r'^migrate/modules$', 'lms_migration.migrate.manage_modulestores'),
@@ -509,6 +534,9 @@ urlpatterns = patterns(*urlpatterns)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+    # in debug mode, allow any template to be rendered (most useful for UX reference templates)
+    urlpatterns += url(r'^template/(?P<template>.+)$', 'debug.views.show_reference_template'),
 
 #Custom error pages
 handler404 = 'static_template_view.views.render_404'

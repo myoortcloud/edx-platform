@@ -1,7 +1,9 @@
-  
+
 .. Links
 
 .. _edX Product and Engineering Newsletter: http://us5.campaign-archive2.com/?u=1822a33c054dc20e223ca40e2&id=090cb3ea4c&e=4a41f5542a
+
+.. _End of August Product Announcement: http://us5.campaign-archive1.com/?u=1822a33c054dc20e223ca40e2&id=2f58184233
 
 .. _edX Release Announcements mailing list: http://eepurl.com/U84tj
 
@@ -16,7 +18,9 @@
 
 .. _edX Status: http://status.edx.org/
 
-.. _edX roadmap: https://edx-wiki.atlassian.net/wiki/display/OPENPROD/Open+EdX+Public+Product+Roadmap
+.. _docs.edx.org: http://docs.edx.org
+
+.. _edX roadmap: https://openedx.atlassian.net/wiki/display/PROD/Product+Roadmap
 
 .. _Building and Running an edX Course: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/
 
@@ -43,6 +47,8 @@
 .. _Working with Video Components: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/creating_content/create_video.html
 
 .. _Bulk Email: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/releasing_course/course_launching.html#bulk-email
+
+.. _Example Messages to Students: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/releasing_course/course_launching.html#example-messages-to-students
 
 .. _Enrollment: http://ca.readthedocs.org/en/latest/running_course/course_enrollment.html#enrollment
 
@@ -73,7 +79,7 @@
 .. _Course Launching Activities: http://ca.readthedocs.org/en/latest/releasing_course/course_launching.html#launch
 
 .. _Adding Pages to a Course: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/building_course/pages.html
-    
+
 .. _Show or Hide the Course Wiki Page: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/building_course/pages.html#show-or-hide-the-course-wiki-page
 
 .. _Creating Course Content: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/en/latest/creating_content/index.html
@@ -140,7 +146,7 @@
 
 .. _Components: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/developing_course/course_components.html
 
-.. _Discussions: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/running_course/discussions.html  
+.. _Discussions: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/running_course/discussions.html
 
 .. _Participating in Course Discussions: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/running_course/discussions_students.html
 
@@ -187,6 +193,9 @@
 
 .. _Developing Your Course: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/developing_course/index.html
 
+.. _New Course Run Announcement: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/releasing_course/course_launching.html#new-course-run-announcement
+
+.. _Add Content Experiments to Your Course: http://edx.readthedocs.org/projects/edx-partner-course-staff/en/latest/content_experiments/content_experiments_add.html
 
 .. Peer Assessments
 
