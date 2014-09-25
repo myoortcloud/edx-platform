@@ -65,7 +65,7 @@
           }  else if(json.redirect_url){
             location.href=json.redirect_url;
           } else {
-            location.href=appendParameter("http://begov.kookmin.ac.kr${reverse('dashboard')}", "signin", "return");
+            location.href="http://begov.kookmin.ac.kr${reverse('dashboard')}";
           }
         } else if(json.hasOwnProperty('redirect')) {
           var u=decodeURI(window.location.search);
