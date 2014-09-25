@@ -103,20 +103,6 @@ site_status_msg = get_site_status_msg(course_id)
           </li>
         % endif
       </%block>
-<<<<<<< HEAD
-      % if not settings.FEATURES['DISABLE_LOGIN_BUTTON']:
-          % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
-          <li class="nav-global-04">
-            <a class="cta cta-register" href="${reverse('course-specific-register', args=[course.id.to_deprecated_string()])}">${_("Register")}</a>
-          </li>
-          % else:
-          <li class="nav-global-04">
-            <a class="cta cta-register" href="https://begov.kookmin.ac.kr/register">${_("Register")}</a>
-          </li>
-          % endif
-      % endif
-=======
->>>>>>> upstream/master
     </ol>
 
     <ol class="right nav-courseware">
@@ -127,7 +113,7 @@ site_status_msg = get_site_status_msg(course_id)
         </li>
         % else:
         <li class="nav-courseware-01">
-          <a class="cta cta-register" href="/register">${_("Register")}</a>
+          <a class="cta cta-register" href="https://begov.kookmin.ac.kr/register">${_("Register")}</a>
         </li>
         % endif
       % endif
@@ -136,11 +122,7 @@ site_status_msg = get_site_status_msg(course_id)
           % if course and settings.FEATURES.get('RESTRICT_ENROLL_BY_REG_METHOD') and course.enrollment_domain:
           <a class="cta cta-login nav-courseware-button" href="${reverse('course-specific-login', args=[course.id.to_deprecated_string()])}${login_query()}">${_("Log in")}</a>
           % else:
-<<<<<<< HEAD
-          <a class="cta cta-login" href="https://begov.kookmin.ac.kr/login${login_query()}">${_("Log in")}</a>
-=======
-          <a class="cta cta-login nav-courseware-button" href="/login${login_query()}">${_("Log in")}</a>
->>>>>>> upstream/master
+          <a class="cta cta-login nav-courseware-button" href="https://begov.kookmin.ac.kr/login${login_query()}">${_("Log in")}</a>
           % endif
       % endif
     </li>
