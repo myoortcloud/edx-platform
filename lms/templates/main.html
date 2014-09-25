@@ -59,7 +59,11 @@
   <%static:css group='style-app-extend1'/>
   <%static:css group='style-app-extend2'/>
 
-  <%static:js group='main_vendor'/>
+  % if disable_courseware_js:
+    <%static:js group='base_vendor'/>
+  % else:
+    <%static:js group='main_vendor'/>
+  % endif
 
   <%block name="headextra"/>
 
@@ -67,16 +71,13 @@
   if theme_enabled() and not is_microsite():
     header_extra_file = 'theme-head-extra.html'
     header_file = 'theme-header.html'
-
+    google_analytics_file = 'theme-google-analytics.html'
     footer_file = 'theme-footer.html'
 
     style_overrides_file = None
 
   else:
     header_extra_file = None
-<<<<<<< HEAD
-    header_file = microsite.get_template_path('navigation.html')
-=======
 
     if settings.FEATURES.get("ENABLE_NEW_EDX_HEADER", False):
         header_file = microsite.get_template_path('navigation.html')
@@ -85,7 +86,6 @@
 
 
     google_analytics_file = microsite.get_template_path('google_analytics.html')
->>>>>>> upstream/master
 
     if settings.FEATURES['IS_EDX_DOMAIN'] and not is_microsite():
         if settings.FEATURES.get('ENABLE_NEW_EDX_FOOTER', False):
